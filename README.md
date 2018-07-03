@@ -19,7 +19,10 @@
 
 - deploy to emulator: `functions deploy helloGET --trigger-http`
 - testing in container: `functions call helloGET --data='{"message":"Hello World"}'`
-- testing in host: ``
+
+#### reference
+
+- [Cloud Functions Documentation  |  Google Cloud](https://cloud.google.com/functions/docs/emulator)
 
 ---
 
