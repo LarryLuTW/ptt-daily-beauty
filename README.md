@@ -19,6 +19,7 @@
 
 - deploy to emulator: `functions deploy helloGET --trigger-http`
 - testing in container: `functions call helloGET --data='{"message":"Hello World"}'`
+- testing from host: `http://localhost:8010/daily-beauty-209105/us-central1/helloGET`
 
 #### reference
 
