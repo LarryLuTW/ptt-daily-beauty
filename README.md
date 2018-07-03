@@ -10,7 +10,7 @@
 - Gmail API
 - Cloud Function
 
-## Subscriber Database
+## Database
 
 - Datastore
 
