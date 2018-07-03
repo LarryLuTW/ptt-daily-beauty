@@ -41,9 +41,22 @@ functions start
 
 #### run in emualator
 
-- deploy to emulator: `functions deploy helloGET --trigger-http`
-- testing in container: `functions call helloGET --data='{"message":"Hello World"}'`
-- testing from host: `http://localhost:8010/daily-beauty-209105/us-central1/helloGET`
+- deploy to emulator
+
+```bash
+functions deploy helloGET --trigger-http
+```
+
+- testing in container
+
+```bash
+functions call helloGET --data='{"message":"Hello World"}'
+```
+
+- testing from host
+```
+curl http://localhost:8010/daily-beauty-209105/us-central1/helloGET
+```
 
 #### reference
 
