@@ -7,5 +7,8 @@
  * @param {Object} res Cloud Function response context.
  */
 exports.helloGET = (req, res) => {
-  res.send('Hello World!')
+  console.log(req)
+  res.send('Hello World!!!')
 }
+
+// functions deploy helloGET --host "0.0.0.0" --trigger-http

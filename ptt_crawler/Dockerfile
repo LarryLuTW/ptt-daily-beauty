@@ -22,6 +22,7 @@ RUN npm i -g @google-cloud/functions-emulator
 
 # init functions
 RUN echo daily-beauty-209105 > projectId && \
-    functions config set projectId daily-beauty-209105 < projectId
+    functions config set projectId daily-beauty-209105 < projectId && \
+    functions config set bindHost 0.0.0.0
 
 CMD ["bash"]
