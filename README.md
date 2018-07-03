@@ -9,11 +9,35 @@
 
 #### initialize
 
-- `cd ptt_crawler`
-- run develop environment in container: `docker-compose up -d --build`
-- attach into container: `docker exec -it ptt_crawler_functions_dev_1 bash`
-- install dependencies: `npm i`
-- start functions-emulator: `functions start`
+- go into ptt_crawler
+
+```bash
+cd ptt_crawler
+```
+
+- run develop environment in container
+
+```bash
+docker-compose up -d --build
+```
+
+- attach into container
+
+```bash
+docker exec -it ptt_crawler_functions_dev_1 bash
+```
+
+- install dependencies
+
+```bash
+npm i
+```
+
+- start functions-emulator
+
+```bash
+functions start
+```
 
 #### run in emualator
 
