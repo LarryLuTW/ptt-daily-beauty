@@ -1,8 +1,8 @@
-# dailt-beauty
+# daily-beauty
 
 ## PTT Crawler
 
-- Nodejs or Go
+- Nodejs
 - Cloud Function
 
 ### development
