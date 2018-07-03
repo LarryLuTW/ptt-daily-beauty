@@ -24,8 +24,6 @@
 
 - [Cloud Functions Documentation  |  Google Cloud](https://cloud.google.com/functions/docs/emulator)
 
----
-
 ## Mail Sender
 
 - Gmail API
