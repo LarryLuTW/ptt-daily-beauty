@@ -15,6 +15,7 @@ WORKDIR /app
 # init gcloud
 ADD daily-beauty-209105-f184a6030753.json .
 RUN gcloud auth activate-service-account --key-file daily-beauty-209105-f184a6030753.json && \
+    gcloud config set project daily-beauty-209105 && \
     gcloud config configurations activate default
 
 # install functions-emulator

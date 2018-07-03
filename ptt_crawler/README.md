@@ -1,4 +1,4 @@
-## development
+## Development
 
 #### initialize
 
@@ -55,3 +55,19 @@ curl http://localhost:8010/daily-beauty-209105/us-central1/helloGET
 #### reference
 
 - [Cloud Functions Documentation  |  Google Cloud](https://cloud.google.com/functions/docs/emulator)
+
+## Deployment
+
+- go into container
+
+- deploy to cloud function
+
+```bash
+gcloud beta functions deploy helloworld --trigger-http
+```
+
+- test
+
+```bash
+curl https://us-central1-daily-beauty-209105.cloudfunctions.net/helloGET
+```
