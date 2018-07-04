@@ -6,9 +6,9 @@
  * @param {Object} req Cloud Function request context.
  * @param {Object} res Cloud Function response context.
  */
-exports.helloGET = (req, res) => {
+exports.getDailyBeauties = (req, res) => {
   console.log(req)
   res.send('Hello World!!!')
 }
 
-// functions deploy helloGET --host "0.0.0.0" --trigger-http
+// functions deploy getDailyBeauties --host "0.0.0.0" --trigger-http

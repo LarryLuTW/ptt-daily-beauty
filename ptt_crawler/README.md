@@ -37,19 +37,19 @@ functions start
 - deploy to emulator
 
 ```bash
-functions deploy helloGET --trigger-http
+functions deploy getDailyBeauties --trigger-http
 ```
 
 - testing in container
 
 ```bash
-functions call helloGET --data='{"message":"Hello World"}'
+functions call getDailyBeauties --data='{"message":"Hello World"}'
 ```
 
 - testing from host
 
 ```
-curl http://localhost:8010/daily-beauty-209105/us-central1/helloGET
+curl http://localhost:8010/daily-beauty-209105/us-central1/getDailyBeauties
 ```
 
 #### reference
@@ -69,5 +69,5 @@ gcloud beta functions deploy helloworld --trigger-http
 - test
 
 ```bash
-curl https://us-central1-daily-beauty-209105.cloudfunctions.net/helloGET
+curl https://us-central1-daily-beauty-209105.cloudfunctions.net/getDailyBeauties
 ```
