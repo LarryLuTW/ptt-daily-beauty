@@ -68,10 +68,25 @@ const getYesterdayPosts = co.wrap(function*() {
   return allPosts
 })
 
-// ref: https://cloud.google.com/functions/docs/writing/http
-exports.getDailyBeauties = (_, res) => {
-  console.log('----------')
-  getYesterdayPosts().then(posts => {
-    res.send(posts)
-  })
+const filter = posts => {
+  return (
+    posts
+      // filter out 公告
+      .filter(p => p.mark === '')
+      .filter(p => isYesterday(p.date))
+      // only find beauty
+      .filter(p => p.title.indexOf('[正妹]') !== -1)
+  )
 }
+
+const sort = posts => posts.sort((a, b) => b.nVote - a.nVote)
+
+// ref: https://cloud.google.com/functions/docs/writing/http
+exports.getDailyBeauties = co.wrap(function*(_, res) {
+  console.log('----------')
+  const allPosts = yield getYesterdayPosts()
+  const filteredPosts = filter(allPosts)
+  const sortedPosts = sort(filteredPosts)
+  const champions = sortedPosts.slice(0, 3)
+  res.send(champions)
+})
