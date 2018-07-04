@@ -1,14 +1,24 @@
-/**
- * HTTP Cloud Function.
- * This function is exported by index.js, and is executed when
- * you make an HTTP request to the deployed function's endpoint.
- *
- * @param {Object} req Cloud Function request context.
- * @param {Object} res Cloud Function response context.
- */
-exports.getDailyBeauties = (req, res) => {
-  console.log(req)
-  res.send('Hello World!!!')
-}
+const axios = require('axios')
+const cheerio = require('cheerio')
 
-// functions deploy getDailyBeauties --host "0.0.0.0" --trigger-http
+const genUrl = page => `https://www.ptt.cc/bbs/Beauty/index${page}.html`
+
+// 2558 meas the latest page is https://www.ptt.cc/bbs/Beauty/index2558.html
+const getLatestPageNumber = () =>
+  axios('https://www.ptt.cc/bbs/Beauty/index.html')
+    .then(res => res.data)
+    .then(body => {
+      const $ = cheerio.load(body)
+      const prevPageHref = $('.btn-group-paging > a:nth-child(2)').attr('href')
+      // only get number part in href
+      const prevPageNumber = +prevPageHref.match(/\d+/g)[0]
+      return prevPageNumber + 1
+    })
+
+// ref: https://cloud.google.com/functions/docs/writing/http
+exports.getDailyBeauties = (_, res) => {
+  console.log('----------')
+  getLatestPageNumber().then(n => {
+    res.send({ n })
+  })
+}
