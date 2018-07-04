@@ -10,6 +10,9 @@ RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
     apt-get update -y && apt-get install google-cloud-sdk -y
 
+# install functions-emulator
+RUN npm i -g @google-cloud/functions-emulator
+
 WORKDIR /app
 
 # init gcloud
@@ -18,10 +21,7 @@ RUN gcloud auth activate-service-account --key-file daily-beauty-209105-f184a603
     gcloud config set project daily-beauty-209105 && \
     gcloud config configurations activate default
 
-# install functions-emulator
-RUN npm i -g @google-cloud/functions-emulator
-
-# init functions
+# init functions-emulator
 RUN echo daily-beauty-209105 > projectId && \
     functions config set projectId daily-beauty-209105 < projectId && \
     functions config set bindHost 0.0.0.0
