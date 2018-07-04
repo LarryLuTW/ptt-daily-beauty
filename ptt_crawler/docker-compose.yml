@@ -2,7 +2,7 @@ version: "3"
 
 services:
   functions_dev:
-    build: .
+    build: ../cloud-function-en
     tty: true
     ports:
       - "8010:8010"
