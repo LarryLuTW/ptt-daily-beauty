@@ -71,7 +71,7 @@ curl http://localhost:8010/daily-beauty-209105/us-central1/getDailyBeauties
 - deploy to cloud function
 
 ```bash
-gcloud beta functions deploy helloworld --trigger-http
+gcloud beta functions deploy getDailyBeauties --trigger-http
 ```
 
 - test
