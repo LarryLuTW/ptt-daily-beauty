@@ -8,7 +8,7 @@
 ## Mail Sender
 
 - Gmail API
-- Cloud Function
+- App Engine
 
 ## Database
 
