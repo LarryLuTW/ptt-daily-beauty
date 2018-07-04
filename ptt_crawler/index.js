@@ -25,32 +25,53 @@ const getPostsInAPage = co.wrap(function*(pageNum) {
 
   const posts = []
   $('div.r-ent').each(function() {
-    const nVoteText = $(this)
-      .find('.hl')
-      .text()
-    const nVote = formatNVote(nVoteText)
+    const nVoteEl = $(this).find('.hl')
+    const nVote = formatNVote(nVoteEl.text())
 
-    posts.push({ nVote })
+    const titleEl = $(this).find('.title > a')
+    const title = titleEl.text()
+    const href = 'https://www.ptt.cc' + titleEl.attr('href')
+
+    const date = $(this)
+      .find('.meta .date')
+      .text()
+      .trim()
+
+    const mark = $(this)
+      .find('.mark')
+      .text()
+
+    posts.push({ nVote, title, href, mark, date })
   })
   return posts
 })
 
 const getYesterdayPosts = co.wrap(function*() {
   let n = yield getLatestPageNumber()
-  // const url = genUrl(n)
-  // const
-  // while (true) {
-  //   n--
-  // }
+  const allPosts = []
+  while (true) {
+    const posts = yield getPostsInAPage(n)
+    posts.reverse()
+    // posts[0] is latest in a page
+    // posts[len-1] is oldest in a page
+    allPosts.push(...posts)
+
+    if (posts[0].mark === '' && isBeforeYesterday(posts[0].date)) {
+      // if date is the day before yesterday, stop crawling
+      break
+    }
+
+    n--
+  }
+  // from old to latest
+  allPosts.reverse()
+  return allPosts
 })
 
 // ref: https://cloud.google.com/functions/docs/writing/http
 exports.getDailyBeauties = (_, res) => {
   console.log('----------')
-  getPostsInAPage(2556).then(n => {
-    res.send({ n })
+  getYesterdayPosts().then(posts => {
+    res.send(posts)
   })
-  // getYesterdayPosts().then(n => {
-  //   res.send({ n })
-  // })
 }
