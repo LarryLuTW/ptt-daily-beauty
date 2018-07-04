@@ -20,7 +20,7 @@ docker-compose up -d --build
 docker exec -it ptt_crawler_functions_dev_1 bash
 ```
 
-- install dependencies
+- install dependencies from package.json
 
 ```bash
 npm i
@@ -33,6 +33,14 @@ functions start
 ```
 
 #### run in emualator
+
+- install new dependencies
+
+```bash
+# because npm version is 3.10.10
+# use -S to save into package.json
+npm i axios -S
+```
 
 - deploy to emulator
 
