@@ -39,7 +39,7 @@ python main.py
 curl http://127.0.0.1:8080/
 ```
 
-#### how to install new dependencies
+- how to install new dependencies
 
 ```bash
 pip install flask
@@ -49,4 +49,16 @@ pip freeze > requirements.txt
 ## Deployment
 
 - go into container
+
+- deploy to app engine
+
+```bash
+gcloud app deploy
+```
+
+- open on browser
+
+```bash
+gcloud app browse
+```
 
