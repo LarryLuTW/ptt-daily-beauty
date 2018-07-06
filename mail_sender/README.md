@@ -65,15 +65,15 @@ gcloud app browse
 
 ## Delete old version
 
-- list all instances
+- list all versions
 
 ```
-gcloud app instance list
+gcloud app versions list
 ```
 
-- delete a instance
+- stop a version
 ```
-gcloud app instances delete <instance id> -s <service> -v <version>
+gcloud app versions stop <version>
 ```
 
 
