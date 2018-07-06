@@ -58,10 +58,7 @@ gcloud app deploy
 
 - open on browser
 
-```bash
-# wait for deploy finish
-gcloud app browse
-```
+wait for deploy finish and goto [https://daily-beauty-209105.appspot.com/](https://daily-beauty-209105.appspot.com/)
 
 ## Delete old version
 
