@@ -7,6 +7,7 @@
 
 ## Mail Sender
 
+- python 3
 - Gmail API
 - App Engine
 
