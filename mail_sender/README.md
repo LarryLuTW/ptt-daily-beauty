@@ -46,9 +46,9 @@ pip install flask
 pip freeze > requirements.txt
 ```
 
-## Deployment
+## Deployment new version
 
-- go into container
+go into container
 
 - deploy to app engine
 
@@ -59,6 +59,21 @@ gcloud app deploy
 - open on browser
 
 ```bash
+# wait for deploy finish
 gcloud app browse
 ```
+
+## Delete old version
+
+- list all instances
+
+```
+gcloud app instance list
+```
+
+- delete a instance
+```
+gcloud app instances delete <instance id> -s <service> -v <version>
+```
+
 
