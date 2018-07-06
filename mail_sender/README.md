@@ -20,6 +20,12 @@ docker-compose up -d --build
 docker exec -it mail_sender_app_engine_py_dev_1 bash
 ```
 
+- install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
 #### develop
 
 - start develop server
@@ -33,7 +39,7 @@ python main.py
 curl http://127.0.0.1:8080/
 ```
 
-#### How to install new dependencies
+#### how to install new dependencies
 
 ```bash
 pip install flask
