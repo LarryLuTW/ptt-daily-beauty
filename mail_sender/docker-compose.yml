@@ -2,7 +2,7 @@ version: "3"
 
 services:
   app_engine_py_dev:
-    build: ./
+    build: ./dev-en
     tty: true
     ports:
       - "8080:8080"
