@@ -56,9 +56,19 @@ go into container
 gcloud app deploy
 ```
 
-- open on browser
+- open with browser
+
+```bash
+gcloud app browse
+```
 
 wait for deploy finish and goto [https://daily-beauty-209105.appspot.com/](https://daily-beauty-209105.appspot.com/)
+
+- get logs
+
+```
+gcloud app logs tail -s default
+```
 
 ## Delete old version
 
