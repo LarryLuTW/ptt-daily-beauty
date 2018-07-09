@@ -7,7 +7,7 @@ import base64
 from googleapiclient.errors import HttpError
 
 def create_message(sender, to, subject, message_text):
-  message = MIMEText(message_text)
+  message = MIMEText(message_text, 'html')
   message['to'] = to
   message['from'] = sender
   message['subject'] = subject
