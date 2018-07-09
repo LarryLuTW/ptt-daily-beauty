@@ -12,7 +12,7 @@ def create_message(sender, to, subject, message_text):
   message['to'] = to
   message['from'] = sender
   message['subject'] = subject
-  return {'raw': base64.urlsafe_b64encode(message.as_bytes())}
+  return {'raw': base64.urlsafe_b64encode(message.as_bytes()).decode('utf-8')}
 
 def send_message(service, user_id, message):
   """Send an email message.
@@ -27,8 +27,6 @@ def send_message(service, user_id, message):
     Sent Message.
   """
   try:
-    message = {'raw': message['raw'].decode('utf-8')}
-
     message = (service.users().messages().send(userId=user_id, body=message)
                .execute())
     print('Message Id: %s' % message['id'])
@@ -46,16 +44,6 @@ if not creds or creds.invalid:
     creds = tools.run_flow(flow, store)
 service = build('gmail', 'v1', http=creds.authorize(Http()))
 
-# Call the Gmail API
-# results = service.users().labels().list(userId='me').execute()
-# labels = results.get('labels', [])
-# if not labels:
-#     print('No labels found.')
-# else:
-#     print('Labels:')
-#     for label in labels:
-#         print(label['name'])
-
-message = create_message("pudding850806@gmail.com", "pudding850806@gmail.com", "subject", 'content')
+message = create_message("pudding850806@gmail.com", "pudding850806@gmail.com", "subject", 'content 222')
 # print(message)
 send_message(service, "me", message)
