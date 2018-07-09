@@ -3,9 +3,8 @@ from apiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 from email.mime.text import MIMEText
-from googleapiclient.errors import HttpError
 import base64
-
+from googleapiclient.errors import HttpError
 
 def create_message(sender, to, subject, message_text):
   message = MIMEText(message_text)
@@ -34,16 +33,16 @@ def send_message(service, user_id, message):
   except HttpError as error:
     print('An error occurred: %s' % error)
 
-# Setup the Gmail API
-# scope ref: https://developers.google.com/gmail/api/auth/scopes
-SCOPES = 'https://www.googleapis.com/auth/gmail.compose'
-store = file.Storage('credentials.json')
-creds = store.get()
-if not creds or creds.invalid:
-    flow = client.flow_from_clientsecrets('client_secret.json', SCOPES)
-    creds = tools.run_flow(flow, store)
-service = build('gmail', 'v1', http=creds.authorize(Http()))
+def send_mail(to, subject, content):
+      # Setup the Gmail API
+  # scope ref: https://developers.google.com/gmail/api/auth/scopes
+  SCOPES = 'https://www.googleapis.com/auth/gmail.compose'
+  store = file.Storage('credentials.json')
+  creds = store.get()
+  if not creds or creds.invalid:
+      flow = client.flow_from_clientsecrets('client_secret.json', SCOPES)
+      creds = tools.run_flow(flow, store)
+  service = build('gmail', 'v1', http=creds.authorize(Http()))
 
-message = create_message("pudding850806@gmail.com", "pudding850806@gmail.com", "subject", 'content 222')
-# print(message)
-send_message(service, "me", message)
+  message = create_message("me", to, subject, content)
+  send_message(service, "me", message)
