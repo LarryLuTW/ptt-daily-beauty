@@ -50,7 +50,7 @@ pip freeze > requirements.txt
 
 go into container
 
-- deploy to app engine
+- deploy to app engine(about 8 ~ 10 mins)
 
 ```bash
 gcloud app deploy
