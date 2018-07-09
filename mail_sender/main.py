@@ -1,13 +1,15 @@
 import logging
 
 from flask import Flask
+from mail import send_mail
+from datetime import datetime
 
 app = Flask(__name__)
-
 
 @app.route('/')
 def hello():
     """Return a friendly HTTP greeting."""
+    send_mail('pudding850806@gmail.com', '標題', '<html>你好阿 Hello World</html>' + str(datetime.now()))
     return 'Hello World! I am Larry.'
 
 
