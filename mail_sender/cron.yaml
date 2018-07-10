@@ -1,5 +1,6 @@
 # ref: https://cloud.google.com/appengine/docs/standard/python/config/cronref#schedule_format
 cron:
-- description: "daily summary job"
+- description: "send daily beauty email"
   url: /test
-  schedule: every 1 minutes
+  timezone: Asia/Taipei
+  schedule: every day 00:05
