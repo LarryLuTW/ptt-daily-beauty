@@ -14,7 +14,7 @@ def hello():
     html = generateHTML(beauties)
     subject = generateSubject()
     send_mail('pudding850806@gmail.com', subject, html)
-    return '發送成功'
+    return 'test success'
 
 
 @app.errorhandler(500)

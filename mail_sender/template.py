@@ -14,24 +14,67 @@
 #              'nVote': 18,
 #              'title': '[正妹] 辰巳唯 (辰巳ゆい)'}]
 
-def genHeader():
-    header = '<h1> 這是今天的日報 </h1>'
-    return header
+from datetime import datetime, timezone, timedelta
+
+css = """
+.content {
+    padding: 0 8%;
+}
+.title {
+    font-size: 38px;
+    font-family: Georgia,Times,'Times New Roman',serif;
+    font-weight: bold;
+    color: #4e4e4e;
+    text-align: center;
+}
+.list-title {
+    font-family: Tahoma,Verdana,Segoe,sans-serif;
+    font-size: 26px;
+    font-weight: bold;
+    color: #4e4e4e;
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 10px;
+    word-break: break-word;
+}
+.item {
+    text-decoration: none;
+    color: #2196f3;
+}
+"""
+
+def genTitle():
+    title = '''
+    <h1 class="title">Daily Beauty 表特日報</h1>
+    <div class="list-title"> 本日精選 </div>
+    '''
+    return title
 
 def genItem(beauty):
     return  ''' 
-    <h3>
-        <a href="{0}"> {2}:{1} </a>
-    <h3>
-    '''.format(beauty['href'], beauty['title'], beauty['nVote'])
+    <h2>
+        <a class="item" href="{0}"> {1} </a>
+    </h2>
+    '''.format(beauty['href'], beauty['title'])
 
 def generateHTML(beauties):
-    header = genHeader()
+    title = genTitle()
     content = ''.join(map(genItem, beauties))
-    html = header + content
+    html = '''
+    <html>
+        <head>
+            <style>{0}</style>
+        </head>
+        <body class="content">
+            {1}
+            {2}
+        </body>
+    </html>
+    '''.format(css, title, content)
     print(html)
     return html
 
 def generateSubject():
-    subject = '[日報第001期]這是 M/DD 的日報'
+    tz = timezone(offset=timedelta(hours=8))
+    date = datetime.today().astimezone(tz).strftime('%Y-%m-%d %H:%M:%S')
+    subject = '[表特日報-{0}]'.format(date)
     return subject
