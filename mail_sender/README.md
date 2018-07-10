@@ -46,6 +46,13 @@ pip install flask
 pip freeze > requirements.txt
 ```
 
+- how to get new sender credentials
+
+```bash
+rm credentials.json
+python get_credentials.py --noauth_local_webserver
+```
+
 ## Deployment new version
 
 go into container
