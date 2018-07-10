@@ -85,6 +85,8 @@ gcloud app logs tail -s default
 gcloud app deploy cron.yaml -q
 ```
 
+goto [https://console.cloud.google.com/appengine/taskqueues/cron?project=daily-beauty-209105](https://console.cloud.google.com/appengine/taskqueues/cron?project=daily-beauty-209105)
+
 ## Delete old version
 
 - list all versions
