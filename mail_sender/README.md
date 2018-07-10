@@ -53,7 +53,7 @@ go into container
 - deploy to app engine(about 8 ~ 10 mins)
 
 ```bash
-gcloud app deploy
+gcloud app deploy -q
 ```
 
 - open with browser
