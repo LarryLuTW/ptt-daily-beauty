@@ -53,7 +53,9 @@ rm credentials.json
 python get_credentials.py --noauth_local_webserver
 ```
 
-## Deployment new version
+## Deployment
+
+### app
 
 go into container
 
@@ -75,6 +77,12 @@ wait for deploy finish and goto [https://daily-beauty-209105.appspot.com/](https
 
 ```
 gcloud app logs tail -s default
+```
+
+### cron job
+
+```bash
+gcloud app deploy cron.yaml -q
 ```
 
 ## Delete old version
