@@ -1,5 +1,5 @@
 # ref: https://cloud.google.com/appengine/docs/standard/python/config/cronref#schedule_format
 cron:
 - description: "daily summary job"
-  url: /
+  url: /test
   schedule: every 1 minutes
