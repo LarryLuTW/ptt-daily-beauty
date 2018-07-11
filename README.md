@@ -22,4 +22,4 @@
 
 ## Subscribe Website
 
-- Github Page
+- Github Page(in `/docs`)
