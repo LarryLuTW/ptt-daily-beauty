@@ -13,7 +13,8 @@ def hello():
     beauties = getBeauties()
     html = generateHTML(beauties)
     subject = generateSubject()
-    send_mail('pudding850806@gmail.com', subject, html)
+    toMails = ['pudding850806@gmail.com']
+    send_mail(toMails, subject, html)
     return 'test success'
 
 

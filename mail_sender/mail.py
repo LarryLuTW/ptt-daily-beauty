@@ -33,7 +33,7 @@ def send_message(service, user_id, message):
   except HttpError as error:
     print('An error occurred: %s' % error)
 
-def send_mail(to, subject, content):
+def send_mail(toMails, subject, content):
       # Setup the Gmail API
   # scope ref: https://developers.google.com/gmail/api/auth/scopes
   SCOPES = 'https://www.googleapis.com/auth/gmail.compose'
@@ -44,5 +44,7 @@ def send_mail(to, subject, content):
       creds = tools.run_flow(flow, store)
   service = build('gmail', 'v1', http=creds.authorize(Http()))
 
-  message = create_message("me", to, subject, content)
-  send_message(service, "me", message)
+  for to in toMails:
+    message = create_message("me", to, subject, content)
+    send_message(service, "me", message)
+    print('send to {} success'.format(to))
