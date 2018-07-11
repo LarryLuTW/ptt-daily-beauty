@@ -3,4 +3,4 @@ cron:
 - description: "send daily beauty email"
   url: /test
   timezone: Asia/Taipei
-  schedule: every day 00:05
+  schedule: every day 23:00
