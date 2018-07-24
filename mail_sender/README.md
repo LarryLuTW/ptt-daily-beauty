@@ -87,17 +87,4 @@ gcloud app deploy cron.yaml -q
 
 goto [https://console.cloud.google.com/appengine/taskqueues/cron?project=daily-beauty-209105](https://console.cloud.google.com/appengine/taskqueues/cron?project=daily-beauty-209105)
 
-## Delete old version
-
-- list all versions
-
-```
-gcloud app versions list
-```
-
-- stop a version
-```
-gcloud app versions stop <version>
-```
-
 
