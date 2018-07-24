@@ -1,6 +1,6 @@
 # ref: https://cloud.google.com/appengine/docs/standard/python/config/cronref#schedule_format
 cron:
 - description: "send daily beauty email"
-  url: /test
+  url: /publish
   timezone: Asia/Taipei
   schedule: every day 23:00
