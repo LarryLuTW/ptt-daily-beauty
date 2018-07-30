@@ -51,7 +51,7 @@ functions deploy getDailyBeauties --trigger-http
 - testing in container
 
 ```bash
-functions call getDailyBeauties --data='{"message":"Hello World"}'
+functions call getDailyBeauties
 ```
 
 - testing from host
