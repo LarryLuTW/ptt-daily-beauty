@@ -71,7 +71,7 @@ gcloud app deploy -q
 gcloud app browse
 ```
 
-wait for deploy finish and goto [https://daily-beauty-209105.appspot.com/](https://daily-beauty-209105.appspot.com/)
+wait for deploy finish and goto [https://daily-beauty-209105.appspot.com/test](https://daily-beauty-209105.appspot.com/test)
 
 - get logs
 
