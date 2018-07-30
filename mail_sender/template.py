@@ -75,6 +75,6 @@ def generateHTML(beauties):
 
 def generateSubject():
     tz = timezone(offset=timedelta(hours=8))
-    date = datetime.today().astimezone(tz).strftime('%Y-%m-%d %H:%M:%S')
+    date = datetime.today().astimezone(tz).strftime('%Y-%m-%d')
     subject = '[表特日報-{0}]'.format(date)
     return subject
