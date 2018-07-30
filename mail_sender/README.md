@@ -17,7 +17,7 @@ docker-compose up -d --build
 - attach into container
 
 ```bash
-docker exec -it mail_sender_app_engine_py_dev_1 bash
+docker exec -it mail_sender_dev_en bash
 ```
 
 - install dependencies
