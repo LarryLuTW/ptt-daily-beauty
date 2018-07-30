@@ -76,6 +76,5 @@ gcloud beta functions deploy getDailyBeauties --trigger-http
 
 - test
 
-```bash
-curl https://us-central1-daily-beauty-209105.cloudfunctions.net/getDailyBeauties
-```
+goto [https://us-central1-daily-beauty-209105.cloudfunctions.net/getDailyBeauties](https://us-central1-daily-beauty-209105.cloudfunctions.net/getDailyBeauties)
+
