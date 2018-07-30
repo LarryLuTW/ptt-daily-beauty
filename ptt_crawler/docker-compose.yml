@@ -2,6 +2,7 @@ version: "3"
 
 services:
   functions_dev:
+    container_name: ptt_crawler_dev_en
     build: ../cloud-function-en
     tty: true
     ports:

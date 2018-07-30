@@ -17,7 +17,7 @@ docker-compose up -d --build
 - attach into container
 
 ```bash
-docker exec -it ptt_crawler_functions_dev_1 bash
+docker exec -it ptt_crawler_dev_en bash
 ```
 
 - install dependencies from package.json
