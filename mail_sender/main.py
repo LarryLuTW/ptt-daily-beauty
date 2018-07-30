@@ -12,7 +12,7 @@ app = Flask(__name__)
 def test():
     beauties = getBeauties()
     html = generateHTML(beauties)
-    subject = generateSubject()
+    subject = generateSubject(withDetailTime=True)
     toMails = ['pudding850806@gmail.com']
     send_mail(toMails, subject, html)
     return 'test success'

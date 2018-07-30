@@ -2,17 +2,10 @@
 #              'href': 'https://www.ptt.cc/bbs/Beauty/M.1530990046.A.580.html',
 #              'mark': '',
 #              'nVote': 54,
+#              'previewImg': 'https://i.imgur.com/zNcPc5S.jpg',
 #              'title': '[正妹] 俄羅斯小龍女'},
-#             {'date': '7/08',
-#              'href': 'https://www.ptt.cc/bbs/Beauty/M.1531041085.A.1AB.html',
-#              'mark': '',
-#              'nVote': 24,
-#              'title': '[正妹] 17歲'},
-#             {'date': '7/08',
-#              'href': 'https://www.ptt.cc/bbs/Beauty/M.1531040102.A.68C.html',
-#              'mark': '',
-#              'nVote': 18,
-#              'title': '[正妹] 辰巳唯 (辰巳ゆい)'}]
+#             {...},
+#             {...}]
 
 from datetime import datetime, timezone, timedelta
 
@@ -40,6 +33,12 @@ css = """
     text-decoration: none;
     color: #2196f3;
 }
+img.preview {
+    display: block;
+    max-width: 60%;
+    max-height: 50vh;
+    margin: 5px 0 25px;
+}
 """
 
 def genTitle():
@@ -53,8 +52,9 @@ def genItem(beauty):
     return  ''' 
     <h2>
         <a class="item" href="{0}"> {1} </a>
+        <img class="preview" src="{2}">
     </h2>
-    '''.format(beauty['href'], beauty['title'])
+    '''.format(beauty['href'], beauty['title'], beauty['previewImg'])
 
 def generateHTML(beauties):
     title = genTitle()
@@ -73,8 +73,9 @@ def generateHTML(beauties):
     print(html)
     return html
 
-def generateSubject():
+def generateSubject(withDetailTime=False):
     tz = timezone(offset=timedelta(hours=8))
-    date = datetime.today().astimezone(tz).strftime('%Y-%m-%d')
+    timeFormat = '%Y-%m-%d %H:%M:%S' if withDetailTime else '%Y-%m-%d' 
+    date = datetime.today().astimezone(tz).strftime(timeFormat)
     subject = '[表特日報-{0}]'.format(date)
     return subject
