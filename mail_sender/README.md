@@ -36,7 +36,7 @@ python main.py
 
 - test on port 8080
 ```bash
-curl http://127.0.0.1:8080/test
+curl [http://127.0.0.1:8080/test](http://127.0.0.1:8080/test)
 ```
 
 - how to install new dependencies
