@@ -1,8 +1,9 @@
 const axios = require('axios')
 const cheerio = require('cheerio')
 const co = require('co')
-const { isToday, isYesterday, isBeforeYesterday } = require('./time')
+const { isYesterday, isBeforeYesterday } = require('./time')
 const { formatNVote } = require('./format')
+const { getPreviewImage } = require('./preview')
 
 const genUrl = pageNum => `https://www.ptt.cc/bbs/Beauty/index${pageNum}.html`
 
@@ -88,5 +89,23 @@ exports.getDailyBeauties = co.wrap(function*(_, res) {
   const filteredPosts = filter(allPosts)
   const sortedPosts = sort(filteredPosts)
   const champions = sortedPosts.slice(0, 3)
+  // champions = [
+  //   {
+  //     nVote: 54,
+  //     title: '[正妹] 實況主',
+  //     href: 'https://www.ptt.cc/bbs/Beauty/M.1532857638.A.4E0.html',
+  //     mark: '',
+  //     date: '7/29',
+  //   },
+  //   {...},
+  //   {...},
+  // ]
+
+  // add previewImg property
+  for (let i = 0; i < champions.length; i++) {
+    champions[i].previewImg = yield getPreviewImage(champions[i].href)
+  }
+
+  console.log(champions)
   res.send(champions)
 })
