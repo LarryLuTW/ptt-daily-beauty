@@ -2,6 +2,7 @@ version: "3"
 
 services:
   app_engine_py_dev:
+    container_name: mail_sender_dev_en
     build: ./dev-en
     tty: true
     ports:
