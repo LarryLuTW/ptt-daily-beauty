@@ -22,7 +22,7 @@ def publish():
     beauties = getBeauties()
     html = generateHTML(beauties)
     subject = generateSubject()
-    toMails = ['pudding850806@gmail.com', 'w5151381guy@gmail.com']
+    toMails = ['pudding850806@gmail.com', 'w5151381guy@gmail.com', 'vorkibiz@gmail.com']
     send_mail(toMails, subject, html)
     return 'publish success'
 
