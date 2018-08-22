@@ -1,4 +1,4 @@
-# ref: 
+# ref:
 # https://cloud.google.com/appengine/docs/flexible/python/configuring-your-app-with-app-yaml
 # https://cloud.google.com/appengine/docs/flexible/python/reference/app-yaml
 runtime: python
@@ -13,5 +13,5 @@ manual_scaling:
 
 resources:
   cpu: 1
-  memory_gb: 0.5
+  memory_gb: 0.8
   disk_size_gb: 10
