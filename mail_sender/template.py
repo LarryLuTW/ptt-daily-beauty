@@ -9,6 +9,8 @@
 
 from datetime import datetime, timezone, timedelta
 
+ranks = list(reversed(['第一名', '第二名', '第三名']))
+
 css = """
 .content {
     padding: 0 8%;
@@ -48,17 +50,18 @@ def genTitle():
     '''
     return title
 
-def genItem(beauty):
+def genItem(idx_beauty):
+    idx, beauty = idx_beauty
     return  ''' 
     <h2>
         <a class="item" href="{0}"> {1} </a>
         <img class="preview" src="{2}">
     </h2>
-    '''.format(beauty['href'], beauty['title'], beauty['previewImg'])
+    '''.format(beauty['href'], ranks[idx] + "：" + beauty['title'][5:], beauty['previewImg'])
 
 def generateHTML(beauties):
     title = genTitle()
-    content = ''.join(map(genItem, beauties))
+    content = ''.join(map(genItem, enumerate(beauties)))
     html = '''
     <html>
         <head>
