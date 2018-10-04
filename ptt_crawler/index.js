@@ -96,6 +96,7 @@ exports.getDailyBeauties = co.wrap(function*(_, res) {
   //     href: 'https://www.ptt.cc/bbs/Beauty/M.1532857638.A.4E0.html',
   //     mark: '',
   //     date: '7/29',
+  //     previewImg: 'https://i.imgur.com/7YPKLND.jpg'
   //   },
   //   {...},
   //   {...},
@@ -106,6 +107,6 @@ exports.getDailyBeauties = co.wrap(function*(_, res) {
     champions[i].previewImg = yield getPreviewImage(champions[i].href)
   }
 
-  console.log(champions)
+  console.log(JSON.stringify(champions, null, 4))
   res.send(champions)
 })
