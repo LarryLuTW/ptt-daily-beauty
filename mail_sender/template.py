@@ -80,5 +80,5 @@ def generateSubject(withDetailTime=False):
     tz = timezone(offset=timedelta(hours=8))
     timeFormat = '%Y-%m-%d %H:%M:%S' if withDetailTime else '%Y-%m-%d' 
     date = datetime.today().astimezone(tz).strftime(timeFormat)
-    subject = '[表特日報-{0}]'.format(date)
+    subject = '[表特日報修好囉-{0}]'.format(date)
     return subject
