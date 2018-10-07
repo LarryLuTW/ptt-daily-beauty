@@ -48,8 +48,11 @@ const getPostsInAPage = co.wrap(function*(pageNum) {
 })
 
 const getYesterdayPosts = co.wrap(function*() {
-  let n = yield getLatestPageNumber()
+  const latestPageNumber = yield getLatestPageNumber()
+
   const allPosts = []
+  let n = latestPageNumber
+
   while (true) {
     const posts = yield getPostsInAPage(n)
     posts.reverse()
@@ -57,7 +60,8 @@ const getYesterdayPosts = co.wrap(function*() {
     // posts[len-1] is oldest in a page
     allPosts.push(...posts)
 
-    if (posts[0].mark === '' && isBeforeYesterday(posts[0].date)) {
+    const isLatestPage = n === latestPageNumber
+    if (!isLatestPage && isBeforeYesterday(posts[0].date)) {
       // if date is the day before yesterday, stop crawling
       break
     }
