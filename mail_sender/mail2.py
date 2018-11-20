@@ -5,7 +5,7 @@ from email.mime.text import MIMEText
 
 msg = MIMEMultipart('alternative')
 msg['Subject'] = "Link"
-msg['From'] = "service@daily-beauty.xyz"
+msg['From'] = "Daily Beauty <service@daily-beauty.xyz>"
 msg['To'] = "pudding850806@gmail.com"
 
 html = """\
@@ -13,7 +13,7 @@ html = """\
   <head></head>
   <body>
     <p>Hi!<br>
-       How are you?<br>
+       你好阿 <br>
        Here is the <a href="http://www.python.org">link</a> you wanted.
     </p>
   </body>
