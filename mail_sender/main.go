@@ -41,14 +41,15 @@ func sendDailyBeauty(subscribers []string, isTest bool) {
 }
 
 func testHandler(w http.ResponseWriter, r *http.Request) {
-	sendDailyBeauty([]string{"pudding850806@gmail.com"}, true)
+	toMails := []string{"pudding850806@gmail.com", "pudding850806+10@gmail.com"}
+	sendDailyBeauty(toMails, true)
 	log.Println("Test successfully")
 	w.Write([]byte("Test successfully"))
 }
 
 func publishHandler(w http.ResponseWriter, r *http.Request) {
-	// toMails := ['pudding850806@gmail.com', 'w5151381guy@gmail.com', 'vorkibiz@gmail.com']
-	sendDailyBeauty([]string{"pudding850806@gmail.com", "pudding850806+10@gmail.com"}, false)
+	toMails := []string{"pudding850806@gmail.com", "w5151381guy@gmail.com", "vorkibiz@gmail.com"}
+	sendDailyBeauty(toMails, false)
 	log.Println("Publish successfully")
 	w.Write([]byte("Publish successfully"))
 }
