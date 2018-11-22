@@ -8,12 +8,3 @@ cron:
       job_retry_limit: 5
       min_backoff_seconds: 2
       max_doublings: 5
-
-  - description: 'test'
-    url: /test
-    timezone: Asia/Taipei
-    schedule: every day 16:30
-    retry_parameters:
-      job_retry_limit: 5
-      min_backoff_seconds: 2
-      max_doublings: 5
