@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  deploy_en:
+    container_name: mail_sender_deploy_en
+    build: ./deploy-en
+    tty: true
+    volumes:
+      - '${PWD}:/src'

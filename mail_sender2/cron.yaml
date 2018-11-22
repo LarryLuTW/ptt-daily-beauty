@@ -1,0 +1,10 @@
+# https://cloud.google.com/appengine/docs/flexible/python/scheduling-jobs-with-cron-yaml
+cron:
+  - description: 'send daily beauty email'
+    url: /publish
+    timezone: Asia/Taipei
+    schedule: every day 23:00
+    retry_parameters:
+      job_retry_limit: 5
+      min_backoff_seconds: 2
+      max_doublings: 5
