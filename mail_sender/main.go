@@ -20,12 +20,14 @@ func init() {
 }
 
 func sendDailyBeauty(subscribers []string, isTest bool) {
+	log.Println("getting daily beauty...")
 	beauties, err := api.FetchBeauties()
 
 	if err != nil {
 		panic(err)
 	}
 
+	log.Println("generating HTML...")
 	html := mail.GenerateHTML(beauties)
 
 	date := jodaTime.Format("YYYY-MM-dd", time.Now())
@@ -35,9 +37,12 @@ func sendDailyBeauty(subscribers []string, isTest bool) {
 		subject += " " + strconv.Itoa(rand.Int())
 	}
 
+	log.Println("sending...")
 	for _, to := range subscribers {
 		mail.Send(to, subject, html)
 	}
+
+	log.Println("Finish")
 }
 
 func testHandler(w http.ResponseWriter, r *http.Request) {
