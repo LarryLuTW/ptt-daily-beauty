@@ -9,7 +9,7 @@ docker exec -it mail_sender_deploy_en bash
 
 ### app
 
-- deploy to app engine(about 8 ~ 10 mins)
+- deploy to app engine(about 1 ~ 2 mins)
 
 ```bash
 gcloud app deploy -q
