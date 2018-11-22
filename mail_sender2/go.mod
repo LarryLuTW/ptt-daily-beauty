@@ -1,1 +1,1 @@
-module mail-sender
+module main
