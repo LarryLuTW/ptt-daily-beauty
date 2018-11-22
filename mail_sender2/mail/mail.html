@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <style>
+      .content {
+        padding: 0 8%;
+      }
+      .title {
+        font-size: 38px;
+        font-family: Georgia, Times, 'Times New Roman', serif;
+        font-weight: bold;
+        color: #4e4e4e;
+        text-align: center;
+      }
+      .list-title {
+        font-family: Tahoma, Verdana, Segoe, sans-serif;
+        font-size: 26px;
+        font-weight: bold;
+        color: #4e4e4e;
+        border-bottom: 1px solid #ebebeb;
+        padding-bottom: 10px;
+        word-break: break-word;
+      }
+      .item {
+        text-decoration: none;
+        color: #2196f3;
+      }
+      img.preview {
+        display: block;
+        max-width: 60%;
+        max-height: 50vh;
+        margin: 5px 0 25px;
+      }
+    </style>
+  </head>
+  <body class="content">
+    <h1 class="title">Daily Beauty 表特日報</h1>
+    <pre>最近參加完鐵人賽在重構，所以壞掉了幾天，現在復活了～</pre>
+    <div class="list-title">本日精選</div>
+
+    {{range .}}
+    <h2>
+      <a class="item" href="{{.Href}}"> 第{{.Rank}}名：{{.Title}} </a>
+      <img class="preview" src="{{.PreviewImg}}" />
+    </h2>
+    {{ end }}
+  </body>
+</html>
