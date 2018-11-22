@@ -1,8 +1,12 @@
 ## Deployment
 
-### app
+#### go into container
+```
+docker-compose up -d --build
+docker exec -it mail_sender_deploy_en bash
+```
 
-go into container
+### app
 
 - deploy to app engine(about 8 ~ 10 mins)
 
@@ -31,5 +35,4 @@ gcloud app deploy cron.yaml -q
 ```
 
 goto [https://console.cloud.google.com/appengine/taskqueues/cron?project=daily-beauty-209105](https://console.cloud.google.com/appengine/taskqueues/cron?project=daily-beauty-209105)
-
 
