@@ -1,6 +1,6 @@
 ## Deployment
 
-#### go into container
+#### First, go into deploy environment
 ```
 docker-compose up -d --build
 docker exec -it mail_sender_deploy_en bash
