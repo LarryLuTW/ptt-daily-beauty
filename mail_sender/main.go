@@ -41,7 +41,7 @@ func sendDailyBeauty(subscribers []string, isTest bool) {
 }
 
 func testHandler(w http.ResponseWriter, r *http.Request) {
-	toMails := []string{"pudding850806@gmail.com", "pudding850806+10@gmail.com"}
+	toMails := []string{"pudding850806@gmail.com"}
 	sendDailyBeauty(toMails, true)
 	log.Println("Test successfully")
 	w.Write([]byte("Test successfully"))
