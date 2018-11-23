@@ -70,3 +70,8 @@ func main() {
 	err := http.ListenAndServe(":"+port, nil)
 	panic(err)
 }
+
+// TODO: analysis
+// TODO: 禮拜幾標題變化
+// TODO: 下載所有圖片
+// TODO: 防止手動觸法 cron

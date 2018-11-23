@@ -20,36 +20,40 @@ type post struct {
 }
 
 // TODO: return error
-func fetchYesterdayPosts() []post {
+func fetchYesterdayPosts() ([]post, error) {
 	prefix := "[正妹]"
-	posts := make([]post, 0, 20)
+	recentPosts := make([]post, 0, 20)
 
+	// get recent posts
 	page := 1
-	for {
-		ps, _ := fetchSearchResult(prefix, page, 1)
-		posts = append(posts, ps...)
+	for ; ; page++ {
+		posts, err := fetchSearchResult(prefix, page, 1)
 
-		oldestDate := posts[len(posts)-1].date
+		if err != nil {
+			return nil, err
+		}
+
+		recentPosts = append(recentPosts, posts...)
+		oldestDate := recentPosts[len(recentPosts)-1].date
 		if isBeforeYesterday(oldestDate) {
 			break
 		}
-		page++
 	}
 
 	// filter yesterday post
 	yesterdayPosts := make([]post, 0, 10)
-	for _, p := range posts {
+	for _, p := range recentPosts {
 		if isYesterday(p.date) {
 			yesterdayPosts = append(yesterdayPosts, p)
 		}
 	}
 
-	return yesterdayPosts
+	return yesterdayPosts, nil
 }
 
 // FetchRandomBeauty randomly fetch a model.Beauty
 func FetchRandomBeauty() model.Beauty {
-	// TODO: error handling
+	// TODO: 不要隨機到最近的, reverse
 	prefix := "[正妹]"
 	page := rand.Intn(50) + 1 // 1 - 50
 	idx := rand.Intn(20)      // 0 - 19
@@ -108,7 +112,12 @@ func getChampions(posts []post) []model.Beauty {
 
 // FetchBeauties send a request to get beauties from getDailyBeauties api
 func FetchBeauties() ([]model.Beauty, error) {
-	posts := fetchYesterdayPosts()
+	posts, err := fetchYesterdayPosts()
+
+	if err != nil {
+		return nil, err
+	}
+
 	beauties := getChampions(posts)
 
 	return beauties, nil
