@@ -17,9 +17,13 @@ import (
 
 func sendDailyBeauty(subscribers []string, isTest bool) {
 	log.Println("getting daily beauty...")
+	// TODO: do parallelly
 	beauties, err := ptt.FetchBeauties()
-	randomBeauty := ptt.FetchRandomBeauty()
+	if err != nil {
+		panic(err)
+	}
 
+	randomBeauty, err := ptt.FetchRandomBeauty()
 	if err != nil {
 		panic(err)
 	}

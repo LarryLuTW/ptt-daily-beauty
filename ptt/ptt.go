@@ -51,27 +51,29 @@ func fetchYesterdayPosts() ([]post, error) {
 }
 
 // FetchRandomBeauty randomly fetch a model.Beauty
-func FetchRandomBeauty() model.Beauty {
-	// TODO: return error
+func FetchRandomBeauty() (model.Beauty, error) {
 	prefix := "[正妹]"
 	page := rand.Intn(50) + 11 // 10 ~ 60
-	posts, _ := fetchSearchResult(prefix, page, 90)
+	posts, err := fetchSearchResult(prefix, page, 90)
+
+	if err != nil {
+		return model.Beauty{}, err
+	}
 
 	idx := rand.Intn(len(posts)) // 0 ~ len(posts)-1
 	p := posts[idx]
 	previewImg := fetchPreviewImgURL(p.href)
 
-	beauty := model.Beauty{
+	b := model.Beauty{
 		NVote:      p.nVote,
 		Title:      p.title,
 		Href:       p.href,
 		PreviewImg: previewImg,
 	}
-	return beauty
+	return b, nil
 }
 
-// TODO: rename
-func getChampions(posts []post) []model.Beauty {
+func getBestBeauties(posts []post) []model.Beauty {
 	sort.SliceStable(posts, func(i, j int) bool {
 		return posts[i].nVote > posts[j].nVote
 	})
@@ -117,7 +119,7 @@ func FetchBeauties() ([]model.Beauty, error) {
 		return nil, err
 	}
 
-	beauties := getChampions(posts)
+	beauties := getBestBeauties(posts)
 
 	return beauties, nil
 }
