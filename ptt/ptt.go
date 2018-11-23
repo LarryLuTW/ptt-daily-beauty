@@ -19,7 +19,6 @@ type post struct {
 	date  time.Time
 }
 
-// TODO: return error
 func fetchYesterdayPosts() ([]post, error) {
 	prefix := "[正妹]"
 	recentPosts := make([]post, 0, 20)
@@ -53,10 +52,10 @@ func fetchYesterdayPosts() ([]post, error) {
 
 // FetchRandomBeauty randomly fetch a model.Beauty
 func FetchRandomBeauty() model.Beauty {
-	// TODO: 不要隨機到最近的, reverse
+	// TODO: return error
 	prefix := "[正妹]"
-	page := rand.Intn(50) + 1 // 1 - 50
-	idx := rand.Intn(20)      // 0 - 19
+	page := rand.Intn(50) + 11 // 10 ~ 60
+	idx := rand.Intn(20)       // 0 ~ 19
 
 	posts, _ := fetchSearchResult(prefix, page, 90)
 	p := posts[idx]
