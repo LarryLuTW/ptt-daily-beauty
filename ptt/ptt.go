@@ -55,9 +55,9 @@ func FetchRandomBeauty() model.Beauty {
 	// TODO: return error
 	prefix := "[正妹]"
 	page := rand.Intn(50) + 11 // 10 ~ 60
-	idx := rand.Intn(20)       // 0 ~ 19
-
 	posts, _ := fetchSearchResult(prefix, page, 90)
+
+	idx := rand.Intn(len(posts)) // 0 ~ len(posts)-1
 	p := posts[idx]
 	previewImg := fetchPreviewImgURL(p.href)
 
