@@ -1,10 +1,9 @@
-package api
+package ptt
 
 import (
 	"fmt"
 	"main/model"
 	"sort"
-	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -15,43 +14,11 @@ import (
 
 const url = "https://us-central1-daily-beauty-209105.cloudfunctions.net/getDailyBeauties"
 
-// parseNVote parses vote text to int
-// "50" => 50, "爆" => 100
-// there is no need to handle nVote <= 0
-// because they are filterer out when searching
-func parseNVote(nVoteText string) int {
-	if nVoteText == "爆" {
-		return 100
-	}
-	nVote, _ := strconv.Atoi(nVoteText)
-	return nVote
-}
-
 type post struct {
 	title string
 	href  string
 	nVote int
 	date  time.Time
-}
-
-func isToday(t time.Time) bool {
-	loc, _ := time.LoadLocation("Asia/Taipei")
-	current := time.Now().In(loc)
-	return t.YearDay() == current.YearDay()
-}
-
-func isYesterday(t time.Time) bool {
-	// FIXME: 跨年 1/1 < 12/31
-	loc, _ := time.LoadLocation("Asia/Taipei")
-	current := time.Now().In(loc)
-	return t.YearDay() == current.YearDay()-1
-}
-
-func isBeforeYesterday(t time.Time) bool {
-	// FIXME: 跨年 1/1 < 12/31
-	loc, _ := time.LoadLocation("Asia/Taipei")
-	current := time.Now().In(loc)
-	return t.YearDay() < current.YearDay()-1
 }
 
 // TODO: function too big
@@ -150,6 +117,11 @@ func getChampions(posts []post) []model.Beauty {
 	beauties[0].Rank = "一"
 	beauties[1].Rank = "二"
 	beauties[2].Rank = "三"
+
+	// [正妹] 大橋未久 -> 大橋未久
+	for i := range beauties {
+		beauties[i].Title = beauties[i].Title[9:]
+	}
 
 	return beauties
 }

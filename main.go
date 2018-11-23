@@ -11,13 +11,13 @@ import (
 
 	"github.com/vjeantet/jodaTime"
 
-	"main/api"
 	"main/mail"
+	"main/ptt"
 )
 
 func sendDailyBeauty(subscribers []string, isTest bool) {
 	log.Println("getting daily beauty...")
-	beauties, err := api.FetchBeauties()
+	beauties, err := ptt.FetchBeauties()
 
 	if err != nil {
 		panic(err)
