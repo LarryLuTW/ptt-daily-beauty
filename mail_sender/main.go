@@ -15,10 +15,6 @@ import (
 	"main/mail"
 )
 
-func init() {
-	time.LoadLocation("NST") // set timezone to taiwan
-}
-
 func sendDailyBeauty(subscribers []string, isTest bool) {
 	log.Println("getting daily beauty...")
 	beauties, err := api.FetchBeauties()
@@ -30,7 +26,8 @@ func sendDailyBeauty(subscribers []string, isTest bool) {
 	log.Println("generating HTML...")
 	html := mail.GenerateHTML(beauties)
 
-	date := jodaTime.Format("YYYY-MM-dd", time.Now())
+	loc, _ := time.LoadLocation("Asia/Taipei")
+	date := jodaTime.Format("YYYY-MM-dd", time.Now().In(loc))
 	subject := fmt.Sprintf("表特日報-%s", date)
 
 	if isTest {
