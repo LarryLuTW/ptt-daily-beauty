@@ -19,7 +19,7 @@ func FetchBeauties() ([]model.Beauty, error) {
 	}
 
 	body, _ := ioutil.ReadAll(resp.Body)
-	beauties := make([]model.Beauty, 3)
+	beauties := make([]model.Beauty, 0, 3)
 	err = json.Unmarshal(body, &beauties)
 
 	if err != nil {
