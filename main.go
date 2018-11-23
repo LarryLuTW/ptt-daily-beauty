@@ -18,13 +18,14 @@ import (
 func sendDailyBeauty(subscribers []string, isTest bool) {
 	log.Println("getting daily beauty...")
 	beauties, err := ptt.FetchBeauties()
+	randomBeauty := ptt.FetchRandomBeauty()
 
 	if err != nil {
 		panic(err)
 	}
 
 	log.Println("generating HTML...")
-	html := mail.GenerateHTML(beauties)
+	html := mail.GenerateHTML(beauties, randomBeauty)
 
 	loc, _ := time.LoadLocation("Asia/Taipei")
 	date := jodaTime.Format("YYYY-MM-dd", time.Now().In(loc))

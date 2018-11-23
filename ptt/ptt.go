@@ -1,66 +1,22 @@
 package ptt
 
 import (
-	"fmt"
 	"main/model"
+	"math/rand"
 	"sort"
-	"strings"
 	"sync"
 	"time"
-
-	"github.com/PuerkitoBio/goquery"
-	"github.com/vjeantet/jodaTime"
 )
 
-const url = "https://us-central1-daily-beauty-209105.cloudfunctions.net/getDailyBeauties"
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
 
 type post struct {
 	title string
 	href  string
 	nVote int
 	date  time.Time
-}
-
-// FIXME: sometimes PTT cache search result
-func fetchSearchResult(prefix string, page, recommend int) ([]post, error) {
-	baseURL := "https://www.ptt.cc/bbs/Beauty/search"
-	url := fmt.Sprintf("%s?page=%d&q=[+recommend:%d", baseURL, page, recommend)
-	doc, err := goquery.NewDocument(url)
-
-	if err != nil {
-		return nil, err
-	}
-
-	posts := make([]post, 0, 20)
-	doc.Find(".r-ent").Each(func(i int, el *goquery.Selection) {
-		nVoteText := el.Find(".hl").Text()
-		nVote := parseNVote(nVoteText)
-
-		titleEl := el.Find(".title > a")
-		title := titleEl.Text()
-
-		if !strings.HasPrefix(title, prefix) {
-			return
-		}
-
-		hrefText, _ := titleEl.Attr("href")
-		href := "https://www.ptt.cc" + hrefText
-
-		currentYear := time.Now().Year()
-		dateText := fmt.Sprintf("%d/%s", currentYear, el.Find(".meta .date").Text())
-		date, _ := jodaTime.ParseInLocation("YYYY/MM/dd", dateText, "Asia/Taipei")
-
-		p := post{
-			title: title,
-			href:  href,
-			nVote: nVote,
-			date:  date,
-		}
-
-		posts = append(posts, p)
-	})
-
-	return posts, nil
 }
 
 // TODO: return error
@@ -91,6 +47,26 @@ func fetchYesterdayPosts() []post {
 	return yesterdayPosts
 }
 
+// FetchRandomBeauty randomly fetch a model.Beauty
+func FetchRandomBeauty() model.Beauty {
+	// TODO: error handling
+	prefix := "[正妹]"
+	page := rand.Intn(50) + 1 // 1 - 50
+	idx := rand.Intn(20)      // 0 - 19
+
+	posts, _ := fetchSearchResult(prefix, page, 90)
+	p := posts[idx]
+	previewImg := fetchPreviewImgURL(p.href)
+
+	beauty := model.Beauty{
+		NVote:      p.nVote,
+		Title:      p.title,
+		Href:       p.href,
+		PreviewImg: previewImg,
+	}
+	return beauty
+}
+
 // TODO: rename
 func getChampions(posts []post) []model.Beauty {
 	sort.SliceStable(posts, func(i, j int) bool {
@@ -106,9 +82,7 @@ func getChampions(posts []post) []model.Beauty {
 	for i, p := range champions {
 		go func(i int, p post) {
 			defer wg.Done()
-			doc, _ := goquery.NewDocument(p.href)
-			imgSelector := `#main-content a[href$=".jpg"],a[href$=".png"],a[href$=".gif"]`
-			imgURL, _ := doc.Find(imgSelector).Attr("href")
+			imgURL := fetchPreviewImgURL(p.href)
 			beauties[i] = model.Beauty{
 				NVote:      p.nVote,
 				Title:      p.title,

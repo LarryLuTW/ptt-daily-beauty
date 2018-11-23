@@ -14,7 +14,7 @@
         img.preview {
           display: block;
           max-width: 75%;
-          max-height: 70vh;
+          max-height: 65vh;
           margin: 5px 0 25px;
         }
       }
@@ -54,13 +54,21 @@
   <body class="content">
     <h1 class="title">Daily Beauty 表特日報</h1>
     <pre>最近參加完鐵人賽在重構，所以壞掉了幾天，現在又復活了～</pre>
-    <div class="list-title">本日精選</div>
 
-    {{range .}}
+    <div class="list-title">本日精選</div>
+    {{ range $.Beauties }}
     <h2>
-      <a class="item" href="{{.Href}}"> 第{{.Rank}}名：{{.Title}} </a>
+      <a class="item" href="{{.Href}}"> 第{{ .Rank }}名：{{ .Title }} </a>
       <img class="preview" src="{{.PreviewImg}}" />
     </h2>
     {{ end }}
+
+    <div class="list-title">隨機推薦</div>
+    <h2>
+      <a class="item" href="{{ $.RandomBeauty.Href }}">
+        {{ $.RandomBeauty.Title }}
+      </a>
+      <img class="preview" src="{{ $.RandomBeauty.PreviewImg }}" />
+    </h2>
   </body>
 </html>
