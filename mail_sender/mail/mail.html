@@ -7,8 +7,27 @@
         font-size: 18px;
         color: #222222;
       }
-      .content {
-        padding: 0 8%;
+      @media screen and (min-width: 960px) {
+        .content {
+          padding: 0 8%;
+        }
+        img.preview {
+          display: block;
+          max-width: 75%;
+          max-height: 70vh;
+          margin: 5px 0 25px;
+        }
+      }
+      @media screen and (max-width: 960px) {
+        .content {
+          padding: 0 5px;
+        }
+        img.preview {
+          display: block;
+          max-width: 100%;
+          max-height: 100vh;
+          margin: 5px 0 25px;
+        }
       }
       .title {
         font-size: 38px;
@@ -29,12 +48,6 @@
       .item {
         text-decoration: none;
         color: #2196f3;
-      }
-      img.preview {
-        display: block;
-        max-width: 60%;
-        max-height: 50vh;
-        margin: 5px 0 25px;
       }
     </style>
   </head>
