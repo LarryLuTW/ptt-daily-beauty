@@ -6,6 +6,5 @@ type Beauty struct {
 	NVote      int
 	Title      string
 	Href       string
-	Date       string
 	PreviewImg string
 }
