@@ -55,7 +55,7 @@ func testHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func publishHandler(w http.ResponseWriter, r *http.Request) {
-	toMails := []string{"pudding850806@gmail.com", "w5151381guy@gmail.com", "vorkibiz@gmail.com"}
+	toMails := []string{"w5151381guy@gmail.com", "vorkibiz@gmail.com", "pudding850806@gmail.com"}
 	sendDailyBeauty(toMails, false)
 	log.Println("Publish successfully")
 	w.Write([]byte("Publish successfully"))
