@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"main/db"
 	"math/rand"
 	"net/http"
 	"os"
@@ -42,6 +43,8 @@ func sendDailyBeauty(subscribers []string, isTest bool) {
 	log.Println("sending...")
 	for _, to := range subscribers {
 		mail.Send(to, subject, html)
+		log.Printf("Send to '%s' success", to)
+		time.Sleep(200 * time.Millisecond)
 	}
 
 	log.Println("Finish")
@@ -55,7 +58,11 @@ func testHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func publishHandler(w http.ResponseWriter, r *http.Request) {
-	toMails := []string{"w5151381guy@gmail.com", "vorkibiz@gmail.com", "pudding850806@gmail.com"}
+	toMails, err := db.GetEmails()
+	if err != nil {
+		panic(err)
+	}
+
 	sendDailyBeauty(toMails, false)
 	log.Println("Publish successfully")
 	w.Write([]byte("Publish successfully"))
@@ -75,7 +82,8 @@ func main() {
 	panic(err)
 }
 
-// TODO: analysis
+// TODO: logging
+// TODO: analysis 轉網址
 // TODO: 禮拜幾標題變化
 // TODO: 下載所有圖片
 // TODO: 防止手動觸法 cron
