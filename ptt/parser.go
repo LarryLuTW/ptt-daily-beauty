@@ -1,6 +1,9 @@
 package ptt
 
-import "strconv"
+import (
+	"strconv"
+	"strings"
+)
 
 // parseNVote parses vote text to int
 // "50" => 50, "爆" => 100
@@ -12,4 +15,9 @@ func parseNVote(nVoteText string) int {
 	}
 	nVote, _ := strconv.Atoi(nVoteText)
 	return nVote
+}
+
+// [正妹] 大橋未久 -> 大橋未久
+func trimTitlePrefix(title string) string {
+	return strings.TrimPrefix(title, "[正妹]")
 }

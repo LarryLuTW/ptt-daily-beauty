@@ -66,7 +66,7 @@ func FetchRandomBeauty() (model.Beauty, error) {
 
 	b := model.Beauty{
 		NVote:      p.nVote,
-		Title:      p.title,
+		Title:      trimTitlePrefix(p.title),
 		Href:       p.href,
 		PreviewImg: previewImg,
 	}
@@ -105,7 +105,7 @@ func getBestBeauties(posts []post) []model.Beauty {
 
 	// [正妹] 大橋未久 -> 大橋未久
 	for i := range beauties {
-		beauties[i].Title = beauties[i].Title[9:]
+		beauties[i].Title = trimTitlePrefix(beauties[i].Title)
 	}
 
 	return beauties
