@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"main/db"
 	"math/rand"
 	"os"
 	"strconv"
@@ -12,6 +11,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/vjeantet/jodaTime"
 
+	"main/jwt"
+	"main/db"
 	"main/mail"
 	"main/ptt"
 )
@@ -68,20 +69,31 @@ func publishHandler(c *gin.Context) {
 	c.String(200, "Publish successfully")
 }
 
-// func subscribeHandler(w http.ResponseWriter, r *http.Request) {
-// }
+func subscribeHandler(c *gin.Context) {
+}
 
-// func unsubscribeHandler(w http.ResponseWriter, r *http.Request) {
+// api/unsubscribe?token={jwt_token}
+func unsubscribeHandler(c *gin.Context) {
+	tokenStr := c.Query("token")
+	email, err := jwt.ParseToken(tokenStr)
 
-// }
+	if(err !=nil){
+		c.AbortWithError(400, err)
+		return
+	}
+
+	db.RemoveAEmail(email)
+	log.Printf("%s unsubscribe", email)
+	c.String(200, "you(%s) have been unsubscribed from our mailing list", email)
+}
 
 func main() {
 	r := gin.Default()
 	r.GET("/test", testHandler)
 	r.GET("/publish", publishHandler)
 
-	// http.HandleFunc("/api/subscribe", subscribeHandler)
-	// http.HandleFunc("/api/unsubscribe", unsubscribeHandler)
+	r.POST("/api/subscribe", subscribeHandler)
+	r.GET("/api/unsubscribe", unsubscribeHandler)
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -94,7 +106,6 @@ func main() {
 }
 
 // TODO: unit test
-// TODO: logging
 // TODO: analysis 轉網址
 // TODO: 禮拜幾標題變化
 // TODO: 下載所有圖片

@@ -28,10 +28,10 @@ func ParseToken(tokenStr string) (email string, err error) {
 }
 
 // NewToken accept a email and generate a token
-func NewToken(email string) (tokenStr string, err error) {
+func NewToken(email string) (tokenStr string) {
 	// ref: https://godoc.org/github.com/dgrijalva/jwt-go#example-New--Hmac
 	payload := jwtGo.MapClaims{"email": email}
 	token := jwtGo.NewWithClaims(jwtGo.SigningMethodHS256, payload)
-	tokenStr, err = token.SignedString(secret)
-	return tokenStr, err
+	tokenStr, _ = token.SignedString(secret)
+	return tokenStr
 }
