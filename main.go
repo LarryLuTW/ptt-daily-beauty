@@ -11,8 +11,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/vjeantet/jodaTime"
 
-	"main/jwt"
 	"main/db"
+	"main/jwt"
 	"main/mail"
 	"main/ptt"
 )
@@ -30,9 +30,6 @@ func sendDailyBeauty(subscribers []string, isTest bool) {
 		panic(err)
 	}
 
-	log.Println("generating HTML...")
-	html := mail.GenerateHTML(beauties, randomBeauty)
-
 	loc, _ := time.LoadLocation("Asia/Taipei")
 	date := jodaTime.Format("YYYY-MM-dd", time.Now().In(loc))
 	subject := fmt.Sprintf("表特日報-%s", date)
@@ -43,6 +40,8 @@ func sendDailyBeauty(subscribers []string, isTest bool) {
 
 	log.Println("sending...")
 	for _, to := range subscribers {
+		token := jwt.NewToken(to)
+		html := mail.GenerateHTML(beauties, randomBeauty, token)
 		mail.Send(to, subject, html)
 		log.Printf("Send to '%s' success", to)
 		time.Sleep(200 * time.Millisecond)
@@ -77,7 +76,7 @@ func unsubscribeHandler(c *gin.Context) {
 	tokenStr := c.Query("token")
 	email, err := jwt.ParseToken(tokenStr)
 
-	if(err !=nil){
+	if err != nil {
 		c.AbortWithError(400, err)
 		return
 	}

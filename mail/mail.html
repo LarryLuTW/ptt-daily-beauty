@@ -49,6 +49,20 @@
         text-decoration: none;
         color: #2196f3;
       }
+      footer {
+        color: #8a9099;
+        background-color: rgb(226, 230, 235);
+        border-top: 1px solid #ebebeb;
+        text-align: center;
+        padding: 14px;
+      }
+      footer > div {
+        padding: 7px;
+      }
+      .unsubscribe {
+        color: #737880 !important;
+        text-decoration: underline;
+      }
     </style>
   </head>
   <body class="content">
@@ -70,5 +84,21 @@
       </a>
       <img class="preview" src="{{ $.RandomBeauty.PreviewImg }}" />
     </h2>
+
+    <footer>
+      <div>
+        你會收到這封信是因為你訂閱了 Daily Beauty 表特日報（或你是 Larry
+        的好朋友）
+      </div>
+      <div>
+        如果你不想再收到了可以
+        <a
+          class="unsubscribe"
+          href="https://daily-beauty-209105.appspot.com/api/unsubscribe?token={{$.Token}}"
+          >取消訂閱</a
+        >
+        ，但現在訂閱頁面還沒做好XD，所以取消了就沒辦法重新訂閱
+      </div>
+    </footer>
   </body>
 </html>
