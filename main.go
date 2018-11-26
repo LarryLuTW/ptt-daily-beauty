@@ -1,6 +1,7 @@
 package main
 
 import (
+	"net/http"
 	"fmt"
 	"log"
 	"math/rand"
@@ -86,6 +87,10 @@ func unsubscribeHandler(c *gin.Context) {
 	c.String(200, "you(%s) have been unsubscribed from our mailing list", email)
 }
 
+func homePageHandler(c *gin.Context){
+	c.HTML(http.StatusOK, "index.html", nil)
+}
+
 func main() {
 	r := gin.Default()
 	r.GET("/test", testHandler)
@@ -93,6 +98,9 @@ func main() {
 
 	r.POST("/api/subscribe", subscribeHandler)
 	r.GET("/api/unsubscribe", unsubscribeHandler)
+
+	r.LoadHTMLFiles("index.html")
+	r.GET("/", homePageHandler)
 
 	port := os.Getenv("PORT")
 	if port == "" {

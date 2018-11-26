@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Daily Beauty 表特日報</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap-grid.css"
+    />
+    <style>
+      body {
+        margin: 0;
+      }
+      #content {
+        text-align: center;
+        color: #444444;
+        padding: 20px 50px;
+      }
+      #preview {
+        background-color: #6cd7e5;
+        height: 100vh;
+        text-align: center;
+        padding-top: 50px;
+      }
+      .title {
+        font-size: 2.5em;
+      }
+      .subscribe > input {
+        outline: none;
+        border-width: 2px;
+        border-style: inset;
+        border-color: initial;
+        border-image: initial;
+        font-size: 18px;
+        padding: 7px 4px;
+        width: calc(100% - 50px);
+        /* margin-right: 12px; */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-7" id="content">
+          <h1 class="title">Daily Beauty 表特日報</h1>
+          <div class="subscribe d-flex">
+            <input type="email" placeholder="請輸入你的信箱" />
+            <div class="button">訂閱</div>
+          </div>
+        </div>
+        <div class="col-5" id="preview">
+          <img src="https://i.imgur.com/V5NSWlS.png" width="360px" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
