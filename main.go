@@ -5,11 +5,11 @@ import (
 	"log"
 	"main/db"
 	"math/rand"
-	"net/http"
 	"os"
 	"strconv"
 	"time"
 
+	"github.com/gin-gonic/gin"
 	"github.com/vjeantet/jodaTime"
 
 	"main/mail"
@@ -50,14 +50,14 @@ func sendDailyBeauty(subscribers []string, isTest bool) {
 	log.Println("Finish")
 }
 
-func testHandler(w http.ResponseWriter, r *http.Request) {
+func testHandler(c *gin.Context) {
 	toMails := []string{"pudding850806@gmail.com"}
 	sendDailyBeauty(toMails, true)
 	log.Println("Test successfully")
-	w.Write([]byte("Test successfully"))
+	c.String(200, "Test successfully")
 }
 
-func publishHandler(w http.ResponseWriter, r *http.Request) {
+func publishHandler(c *gin.Context) {
 	toMails, err := db.GetEmails()
 	if err != nil {
 		panic(err)
@@ -65,12 +65,23 @@ func publishHandler(w http.ResponseWriter, r *http.Request) {
 
 	sendDailyBeauty(toMails, false)
 	log.Println("Publish successfully")
-	w.Write([]byte("Publish successfully"))
+	c.String(200, "Publish successfully")
 }
 
+// func subscribeHandler(w http.ResponseWriter, r *http.Request) {
+// }
+
+// func unsubscribeHandler(w http.ResponseWriter, r *http.Request) {
+
+// }
+
 func main() {
-	http.HandleFunc("/test", testHandler)
-	http.HandleFunc("/publish", publishHandler)
+	r := gin.Default()
+	r.GET("/test", testHandler)
+	r.GET("/publish", publishHandler)
+
+	// http.HandleFunc("/api/subscribe", subscribeHandler)
+	// http.HandleFunc("/api/unsubscribe", unsubscribeHandler)
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -78,12 +89,13 @@ func main() {
 	}
 
 	log.Printf("listen on port %s", port)
-	err := http.ListenAndServe(":"+port, nil)
+	err := r.Run(":" + port)
 	panic(err)
 }
 
+// TODO: unit test
 // TODO: logging
 // TODO: analysis 轉網址
 // TODO: 禮拜幾標題變化
 // TODO: 下載所有圖片
-// TODO: 防止手動觸法 cron
+// TODO: 防止手動觸發 cron
