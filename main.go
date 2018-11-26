@@ -79,6 +79,7 @@ func unsubscribeHandler(c *gin.Context) {
 
 	if err != nil {
 		c.AbortWithError(400, err)
+		// TODO: render error to frontend
 		return
 	}
 
@@ -112,6 +113,7 @@ func main() {
 	panic(err)
 }
 
+// TODO: www to non-www, enforce https
 // TODO: unit test
 // TODO: analysis 轉網址
 // TODO: 禮拜幾標題變化
