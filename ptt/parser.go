@@ -19,5 +19,5 @@ func parseNVote(nVoteText string) int {
 
 // [正妹] 大橋未久 -> 大橋未久
 func trimTitlePrefix(title string) string {
-	return strings.TrimPrefix(title, "[正妹]")
+	return strings.TrimPrefix(title, "[正妹] ")
 }
