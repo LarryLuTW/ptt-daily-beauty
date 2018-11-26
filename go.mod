@@ -2,6 +2,7 @@ module main
 
 require (
 	github.com/PuerkitoBio/goquery v1.5.0
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/golang/snappy v0.0.0-20180518054509-2e65f85255db // indirect
 	github.com/mongodb/mongo-go-driver v0.0.18
