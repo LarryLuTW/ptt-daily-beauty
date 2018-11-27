@@ -1,13 +1,14 @@
 package ptt
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/PuerkitoBio/goquery"
 )
 
 // fetchPageAmount get latest page number
-func fetchPageAmount() int {
+func fetchPageAmount() (int, error) {
 	url := "https://www.ptt.cc/bbs/Beauty/index.html"
 	doc, _ := goquery.NewDocument(url)
 	prevPageSelector := ".wide:nth-child(2)"
@@ -15,7 +16,11 @@ func fetchPageAmount() int {
 
 	var n int
 	fmt.Sscanf(href, "/bbs/Beauty/index%d.html", &n)
-	return n
+
+	if n == 0 {
+		return 0, errors.New("Cannot connect to PTT")
+	}
+	return n, nil
 }
 
 // fetchPage fetch all posts in a page
