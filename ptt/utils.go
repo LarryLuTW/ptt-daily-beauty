@@ -70,7 +70,7 @@ func fetchPage(prefix string, page int) ([]post, error) {
 func fetchSearchResult(prefix string, page, recommend int) ([]post, error) {
 	// page from 1, 2, ...
 	baseURL := "https://www.ptt.cc/bbs/Beauty/search"
-	url := fmt.Sprintf("%s?page=%d&q=[正+recommend:%d", baseURL, page, recommend)
+	url := fmt.Sprintf("%s?page=%d&q=%s+recommend:%d", baseURL, page, prefix, recommend)
 	doc, err := goquery.NewDocument(url)
 
 	if err != nil {
