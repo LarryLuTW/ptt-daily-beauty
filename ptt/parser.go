@@ -1,8 +1,13 @@
 package ptt
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
+	"time"
+
+	"github.com/PuerkitoBio/goquery"
+	"github.com/vjeantet/jodaTime"
 )
 
 // parseNVote parses vote text to int
@@ -28,4 +33,37 @@ func parseNVote(nVoteText string) int {
 // [正妹] 大橋未久 -> 大橋未久
 func trimTitlePrefix(title string) string {
 	return strings.TrimPrefix(title, "[正妹] ")
+}
+
+func parseDoc2Posts(doc *goquery.Document, prefix string) []post {
+	// TODO: remove 置頂文
+	posts := make([]post, 0, 20)
+	doc.Find(".r-ent").Each(func(i int, el *goquery.Selection) {
+		nVoteText := el.Find(".hl").Text()
+		nVote := parseNVote(nVoteText)
+
+		titleEl := el.Find(".title > a")
+		title := titleEl.Text()
+
+		if !strings.HasPrefix(title, prefix) {
+			return
+		}
+
+		hrefText, _ := titleEl.Attr("href")
+		href := "https://www.ptt.cc" + hrefText
+
+		currentYear := time.Now().Year()
+		dateText := fmt.Sprintf("%d/%s", currentYear, el.Find(".meta .date").Text())
+		date, _ := jodaTime.ParseInLocation("YYYY/MM/dd", dateText, "Asia/Taipei")
+
+		p := post{
+			title: title,
+			href:  href,
+			nVote: nVote,
+			date:  date,
+		}
+
+		posts = append(posts, p)
+	})
+	return posts
 }

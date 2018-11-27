@@ -2,11 +2,8 @@ package ptt
 
 import (
 	"fmt"
-	"strings"
-	"time"
 
 	"github.com/PuerkitoBio/goquery"
-	"github.com/vjeantet/jodaTime"
 )
 
 // fetchPageAmount get latest page number
@@ -23,7 +20,6 @@ func fetchPageAmount() int {
 
 // fetchPage fetch all posts in a page
 func fetchPage(prefix string, page int) ([]post, error) {
-	// TODO: remove 置頂文
 	baseURL := "https://www.ptt.cc/bbs/Beauty/"
 	url := fmt.Sprintf("%sindex%d.html", baseURL, page)
 
@@ -32,40 +28,11 @@ func fetchPage(prefix string, page int) ([]post, error) {
 		return nil, err
 	}
 
-	// TODO: split to a single function
-	posts := make([]post, 0, 20)
-	doc.Find(".r-ent").Each(func(i int, el *goquery.Selection) {
-		nVoteText := el.Find(".hl").Text()
-		nVote := parseNVote(nVoteText)
-
-		titleEl := el.Find(".title > a")
-		title := titleEl.Text()
-
-		if !strings.HasPrefix(title, prefix) {
-			return
-		}
-
-		hrefText, _ := titleEl.Attr("href")
-		href := "https://www.ptt.cc" + hrefText
-
-		currentYear := time.Now().Year()
-		dateText := fmt.Sprintf("%d/%s", currentYear, el.Find(".meta .date").Text())
-		date, _ := jodaTime.ParseInLocation("YYYY/MM/dd", dateText, "Asia/Taipei")
-
-		p := post{
-			title: title,
-			href:  href,
-			nVote: nVote,
-			date:  date,
-		}
-
-		posts = append(posts, p)
-	})
-
+	posts := parseDoc2Posts(doc, prefix)
 	return posts, nil
 }
 
-// FIXME: sometimes PTT cache search result
+// sometimes PTT cache search result
 // fetchSearchResult use PTT search to get search result
 func fetchSearchResult(prefix string, page, recommend int) ([]post, error) {
 	// page from 1, 2, ...
@@ -77,35 +44,7 @@ func fetchSearchResult(prefix string, page, recommend int) ([]post, error) {
 		return nil, err
 	}
 
-	posts := make([]post, 0, 20)
-	doc.Find(".r-ent").Each(func(i int, el *goquery.Selection) {
-		nVoteText := el.Find(".hl").Text()
-		nVote := parseNVote(nVoteText)
-
-		titleEl := el.Find(".title > a")
-		title := titleEl.Text()
-
-		if !strings.HasPrefix(title, prefix) {
-			return
-		}
-
-		hrefText, _ := titleEl.Attr("href")
-		href := "https://www.ptt.cc" + hrefText
-
-		currentYear := time.Now().Year()
-		dateText := fmt.Sprintf("%d/%s", currentYear, el.Find(".meta .date").Text())
-		date, _ := jodaTime.ParseInLocation("YYYY/MM/dd", dateText, "Asia/Taipei")
-
-		p := post{
-			title: title,
-			href:  href,
-			nVote: nVote,
-			date:  date,
-		}
-
-		posts = append(posts, p)
-	})
-
+	posts := parseDoc2Posts(doc, prefix)
 	return posts, nil
 }
 

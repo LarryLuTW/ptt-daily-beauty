@@ -12,13 +12,6 @@ func init() {
 	rand.Seed(time.Now().UnixNano())
 }
 
-type post struct {
-	title string
-	href  string
-	nVote int
-	date  time.Time
-}
-
 func fetchYesterdayPosts() ([]post, error) {
 	prefix := "[正妹]"
 	recentPosts := make([]post, 0, 20)
