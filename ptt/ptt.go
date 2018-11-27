@@ -24,9 +24,9 @@ func fetchYesterdayPosts() ([]post, error) {
 	recentPosts := make([]post, 0, 20)
 
 	// get recent posts
-	page := 1
-	for ; ; page++ {
-		posts, err := fetchSearchResult(prefix, page, 1)
+	page := fetchPageAmount()
+	for ; ; page-- {
+		posts, err := fetchPage(prefix, page)
 
 		if err != nil {
 			return nil, err
