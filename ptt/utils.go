@@ -9,6 +9,18 @@ import (
 	"github.com/vjeantet/jodaTime"
 )
 
+// FetchPageAmount get latest page number
+func FetchPageAmount() int {
+	url := "https://www.ptt.cc/bbs/Beauty/index.html"
+	doc, _ := goquery.NewDocument(url)
+	prevPageSelector := ".wide:nth-child(2)"
+	href, _ := doc.Find(prevPageSelector).Attr("href")
+
+	var n int
+	fmt.Sscanf(href, "/bbs/Beauty/index%d.html", &n)
+	return n
+}
+
 // FIXME: sometimes PTT cache search result
 func fetchSearchResult(prefix string, page, recommend int) ([]post, error) {
 	baseURL := "https://www.ptt.cc/bbs/Beauty/search"
