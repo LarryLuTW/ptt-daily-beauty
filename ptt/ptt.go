@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// TODO: split ptt api layer and utils layer
 func init() {
 	rand.Seed(time.Now().UnixNano())
 }
