@@ -9,6 +9,7 @@
       if (origin === 'https://www.daily-beauty.xyz') {
         window.location.replace('https://daily-beauty.xyz')
       }
+      // TODO: verify email
     </script>
     <link
       rel="stylesheet"
@@ -35,27 +36,36 @@
       .subscribe > input {
         outline: none;
         border-width: 2px;
-        border-style: inset;
-        border-color: initial;
-        border-image: initial;
         font-size: 18px;
         padding: 7px 4px;
         width: calc(100% - 50px);
-        /* margin-right: 12px; */
+        max-width: 400px;
+      }
+      .subscribe > .button {
+        width: 50px;
+        color: white;
+        background-color: #6cd7e5;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 3px;
       }
     </style>
   </head>
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-7" id="content">
+        <div class="col-md-7" id="content">
           <h1 class="title">Daily Beauty 表特日報</h1>
-          <div class="subscribe d-flex">
+          <div class="subscribe d-flex justify-content-center">
             <input type="email" placeholder="請輸入你的信箱" />
-            <div class="button">訂閱</div>
+            <div
+              class="button d-flex justify-content-center align-items-center"
+            >
+              訂閱
+            </div>
           </div>
         </div>
-        <div class="col-5" id="preview">
+        <div class="col-md-5" id="preview">
           <img src="https://i.imgur.com/V5NSWlS.png" width="360px" />
         </div>
       </div>
