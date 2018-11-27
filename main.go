@@ -1,10 +1,10 @@
 package main
 
 import (
-	"net/http"
 	"fmt"
 	"log"
 	"math/rand"
+	"net/http"
 	"os"
 	"strconv"
 	"time"
@@ -88,7 +88,7 @@ func unsubscribeHandler(c *gin.Context) {
 	c.String(200, "you(%s) have been unsubscribed from our mailing list", email)
 }
 
-func homePageHandler(c *gin.Context){
+func homePageHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "index.html", nil)
 }
 
