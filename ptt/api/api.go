@@ -3,17 +3,11 @@ package api
 import (
 	"errors"
 	"fmt"
-	"time"
+
+	"main/model"
 
 	"github.com/PuerkitoBio/goquery"
 )
-
-type Post struct {
-	Title string
-	Href  string
-	NVote int
-	Date  time.Time
-}
 
 // FetchPageAmount get latest page number
 func FetchPageAmount() (int, error) {
@@ -32,7 +26,7 @@ func FetchPageAmount() (int, error) {
 }
 
 // FetchPage get all posts in a page
-func FetchPage(prefix string, page int) ([]Post, error) {
+func FetchPage(prefix string, page int) ([]model.Post, error) {
 	baseURL := "https://www.ptt.cc/bbs/Beauty/"
 	url := fmt.Sprintf("%sindex%d.html", baseURL, page)
 
@@ -47,7 +41,7 @@ func FetchPage(prefix string, page int) ([]Post, error) {
 
 // Search use PTT search to get search result
 // sometimes PTT cache search result
-func Search(prefix string, page, recommend int) ([]Post, error) {
+func Search(prefix string, page, recommend int) ([]model.Post, error) {
 	// page from 1, 2, ...
 	baseURL := "https://www.ptt.cc/bbs/Beauty/search"
 	url := fmt.Sprintf("%s?page=%d&q=%s+recommend:%d", baseURL, page, prefix, recommend)
@@ -62,7 +56,7 @@ func Search(prefix string, page, recommend int) ([]Post, error) {
 }
 
 // FetchPreviewImg get the preview image of a post
-func FetchPreviewImg(p Post) string {
+func FetchPreviewImg(p model.Post) string {
 	// TODO: handle error
 	doc, _ := goquery.NewDocument(p.Href)
 	imgSelector := `#main-content a[href$=".jpg"],a[href$=".png"],a[href$=".gif"]`

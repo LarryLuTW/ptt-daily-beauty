@@ -6,6 +6,8 @@ import (
 	"strings"
 	"time"
 
+	"main/model"
+
 	"github.com/PuerkitoBio/goquery"
 	"github.com/vjeantet/jodaTime"
 )
@@ -30,9 +32,9 @@ func parseNVote(nVoteText string) int {
 	return nVote
 }
 
-func parseDoc2Posts(doc *goquery.Document, prefix string) []Post {
+func parseDoc2Posts(doc *goquery.Document, prefix string) []model.Post {
 	// TODO: remove 置頂文
-	posts := make([]Post, 0, 20)
+	posts := make([]model.Post, 0, 20)
 	doc.Find(".r-ent").Each(func(i int, el *goquery.Selection) {
 		nVoteText := el.Find(".hl").Text()
 		nVote := parseNVote(nVoteText)
@@ -51,7 +53,7 @@ func parseDoc2Posts(doc *goquery.Document, prefix string) []Post {
 		dateText := fmt.Sprintf("%d/%s", currentYear, el.Find(".meta .date").Text())
 		date, _ := jodaTime.ParseInLocation("YYYY/MM/dd", dateText, "Asia/Taipei")
 
-		p := Post{
+		p := model.Post{
 			Title: title,
 			Href:  href,
 			NVote: nVote,

@@ -20,9 +20,9 @@ func trimTitlePrefix(title string) string {
 	return strings.TrimPrefix(title, "[正妹] ")
 }
 
-func fetchYesterdayPosts() ([]api.Post, error) {
+func fetchYesterdayPosts() ([]model.Post, error) {
 	prefix := "[正妹]"
-	recentPosts := make([]api.Post, 0, 20)
+	recentPosts := make([]model.Post, 0, 20)
 
 	// get recent posts
 	page, err := api.FetchPageAmount()
@@ -45,7 +45,7 @@ func fetchYesterdayPosts() ([]api.Post, error) {
 	}
 
 	// filter yesterday post
-	yesterdayPosts := make([]api.Post, 0, 10)
+	yesterdayPosts := make([]model.Post, 0, 10)
 	for _, p := range recentPosts {
 		if isYesterday(p.Date) {
 			yesterdayPosts = append(yesterdayPosts, p)
@@ -78,7 +78,7 @@ func FetchRandomBeauty() (model.Beauty, error) {
 	return b, nil
 }
 
-func getBestBeauties(posts []api.Post) []model.Beauty {
+func getBestBeauties(posts []model.Post) []model.Beauty {
 	sort.SliceStable(posts, func(i, j int) bool {
 		return posts[i].NVote > posts[j].NVote
 	})
@@ -90,7 +90,7 @@ func getBestBeauties(posts []api.Post) []model.Beauty {
 	wg.Add(3)
 
 	for i, p := range champions {
-		go func(i int, p api.Post) {
+		go func(i int, p model.Post) {
 			defer wg.Done()
 			imgURL := api.FetchPreviewImg(p)
 			beauties[i] = model.Beauty{
