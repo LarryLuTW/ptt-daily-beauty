@@ -5,7 +5,6 @@ import (
 	"main/ptt/api"
 	"math/rand"
 	"sort"
-	"strings"
 	"sync"
 	"time"
 )
@@ -13,11 +12,6 @@ import (
 // TODO: split ptt api layer and utils layer
 func init() {
 	rand.Seed(time.Now().UnixNano())
-}
-
-// [正妹] 大橋未久 -> 大橋未久
-func trimTitlePrefix(title string) string {
-	return strings.TrimPrefix(title, "[正妹] ")
 }
 
 func fetchYesterdayPosts() ([]model.Post, error) {
@@ -67,14 +61,7 @@ func FetchRandomBeauty() (model.Beauty, error) {
 
 	idx := rand.Intn(len(posts)) // 0 ~ len(posts)-1
 	p := posts[idx]
-	previewImg := api.FetchPreviewImg(p)
-
-	b := model.Beauty{
-		NVote:      p.NVote,
-		Title:      trimTitlePrefix(p.Title),
-		Href:       p.Href,
-		PreviewImg: previewImg,
-	}
+	b := p.ToBeauty()
 	return b, nil
 }
 
@@ -88,30 +75,17 @@ func getBestBeauties(posts []model.Post) []model.Beauty {
 
 	var wg sync.WaitGroup
 	wg.Add(3)
-
 	for i, p := range champions {
 		go func(i int, p model.Post) {
-			defer wg.Done()
-			imgURL := api.FetchPreviewImg(p)
-			beauties[i] = model.Beauty{
-				NVote:      p.NVote,
-				Title:      p.Title,
-				Href:       p.Href,
-				PreviewImg: imgURL,
-			}
+			beauties[i] = p.ToBeauty()
+			wg.Done()
 		}(i, p)
 	}
-
 	wg.Wait()
 
 	beauties[0].Rank = "一"
 	beauties[1].Rank = "二"
 	beauties[2].Rank = "三"
-
-	// [正妹] 大橋未久 -> 大橋未久
-	for i := range beauties {
-		beauties[i].Title = trimTitlePrefix(beauties[i].Title)
-	}
 
 	return beauties
 }
