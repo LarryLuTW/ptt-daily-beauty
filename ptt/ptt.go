@@ -93,12 +93,9 @@ func getBestBeauties(posts []model.Post) []model.Beauty {
 // FetchBeauties send a request to get beauties from getDailyBeauties api
 func FetchBeauties() ([]model.Beauty, error) {
 	posts, err := fetchYesterdayPosts()
-
 	if err != nil {
 		return nil, err
 	}
-
 	beauties := getBestBeauties(posts)
-
 	return beauties, nil
 }
