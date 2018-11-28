@@ -1,4 +1,4 @@
-package ptt
+package api
 
 import (
 	"fmt"
@@ -30,14 +30,9 @@ func parseNVote(nVoteText string) int {
 	return nVote
 }
 
-// [正妹] 大橋未久 -> 大橋未久
-func trimTitlePrefix(title string) string {
-	return strings.TrimPrefix(title, "[正妹] ")
-}
-
-func parseDoc2Posts(doc *goquery.Document, prefix string) []post {
+func parseDoc2Posts(doc *goquery.Document, prefix string) []Post {
 	// TODO: remove 置頂文
-	posts := make([]post, 0, 20)
+	posts := make([]Post, 0, 20)
 	doc.Find(".r-ent").Each(func(i int, el *goquery.Selection) {
 		nVoteText := el.Find(".hl").Text()
 		nVote := parseNVote(nVoteText)
@@ -56,11 +51,11 @@ func parseDoc2Posts(doc *goquery.Document, prefix string) []post {
 		dateText := fmt.Sprintf("%d/%s", currentYear, el.Find(".meta .date").Text())
 		date, _ := jodaTime.ParseInLocation("YYYY/MM/dd", dateText, "Asia/Taipei")
 
-		p := post{
-			title: title,
-			href:  href,
-			nVote: nVote,
-			date:  date,
+		p := Post{
+			Title: title,
+			Href:  href,
+			NVote: nVote,
+			Date:  date,
 		}
 
 		posts = append(posts, p)

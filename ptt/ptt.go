@@ -2,8 +2,10 @@ package ptt
 
 import (
 	"main/model"
+	"main/ptt/api"
 	"math/rand"
 	"sort"
+	"strings"
 	"sync"
 	"time"
 )
@@ -13,34 +15,39 @@ func init() {
 	rand.Seed(time.Now().UnixNano())
 }
 
-func fetchYesterdayPosts() ([]post, error) {
+// [正妹] 大橋未久 -> 大橋未久
+func trimTitlePrefix(title string) string {
+	return strings.TrimPrefix(title, "[正妹] ")
+}
+
+func fetchYesterdayPosts() ([]api.Post, error) {
 	prefix := "[正妹]"
-	recentPosts := make([]post, 0, 20)
+	recentPosts := make([]api.Post, 0, 20)
 
 	// get recent posts
-	page, err := fetchPageAmount()
+	page, err := api.FetchPageAmount()
 	if err != nil {
 		return nil, err
 	}
 
 	for ; ; page-- {
-		posts, err := fetchPage(prefix, page)
+		posts, err := api.FetchPage(prefix, page)
 
 		if err != nil {
 			return nil, err
 		}
 
 		recentPosts = append(recentPosts, posts...)
-		oldestDate := recentPosts[len(recentPosts)-1].date
+		oldestDate := recentPosts[len(recentPosts)-1].Date
 		if isBeforeYesterday(oldestDate) {
 			break
 		}
 	}
 
 	// filter yesterday post
-	yesterdayPosts := make([]post, 0, 10)
+	yesterdayPosts := make([]api.Post, 0, 10)
 	for _, p := range recentPosts {
-		if isYesterday(p.date) {
+		if isYesterday(p.Date) {
 			yesterdayPosts = append(yesterdayPosts, p)
 		}
 	}
@@ -52,7 +59,7 @@ func fetchYesterdayPosts() ([]post, error) {
 func FetchRandomBeauty() (model.Beauty, error) {
 	prefix := "[正妹]"
 	page := rand.Intn(50) + 11 // 10 ~ 60
-	posts, err := fetchSearchResult(prefix, page, 90)
+	posts, err := api.Search(prefix, page, 90)
 
 	if err != nil {
 		return model.Beauty{}, err
@@ -60,20 +67,20 @@ func FetchRandomBeauty() (model.Beauty, error) {
 
 	idx := rand.Intn(len(posts)) // 0 ~ len(posts)-1
 	p := posts[idx]
-	previewImg := fetchPreviewImgURL(p.href)
+	previewImg := fetchPreviewImgURL(p.Href)
 
 	b := model.Beauty{
-		NVote:      p.nVote,
-		Title:      trimTitlePrefix(p.title),
-		Href:       p.href,
+		NVote:      p.NVote,
+		Title:      trimTitlePrefix(p.Title),
+		Href:       p.Href,
 		PreviewImg: previewImg,
 	}
 	return b, nil
 }
 
-func getBestBeauties(posts []post) []model.Beauty {
+func getBestBeauties(posts []api.Post) []model.Beauty {
 	sort.SliceStable(posts, func(i, j int) bool {
-		return posts[i].nVote > posts[j].nVote
+		return posts[i].NVote > posts[j].NVote
 	})
 
 	champions := posts[:3]
@@ -83,13 +90,13 @@ func getBestBeauties(posts []post) []model.Beauty {
 	wg.Add(3)
 
 	for i, p := range champions {
-		go func(i int, p post) {
+		go func(i int, p api.Post) {
 			defer wg.Done()
-			imgURL := fetchPreviewImgURL(p.href)
+			imgURL := fetchPreviewImgURL(p.Href)
 			beauties[i] = model.Beauty{
-				NVote:      p.nVote,
-				Title:      p.title,
-				Href:       p.href,
+				NVote:      p.NVote,
+				Title:      p.Title,
+				Href:       p.Href,
 				PreviewImg: imgURL,
 			}
 		}(i, p)
