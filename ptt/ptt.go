@@ -67,7 +67,7 @@ func FetchRandomBeauty() (model.Beauty, error) {
 
 	idx := rand.Intn(len(posts)) // 0 ~ len(posts)-1
 	p := posts[idx]
-	previewImg := fetchPreviewImgURL(p.Href)
+	previewImg := api.FetchPreviewImg(p)
 
 	b := model.Beauty{
 		NVote:      p.NVote,
@@ -92,7 +92,7 @@ func getBestBeauties(posts []api.Post) []model.Beauty {
 	for i, p := range champions {
 		go func(i int, p api.Post) {
 			defer wg.Done()
-			imgURL := fetchPreviewImgURL(p.Href)
+			imgURL := api.FetchPreviewImg(p)
 			beauties[i] = model.Beauty{
 				NVote:      p.NVote,
 				Title:      p.Title,

@@ -60,3 +60,12 @@ func Search(prefix string, page, recommend int) ([]Post, error) {
 	posts := parseDoc2Posts(doc, prefix)
 	return posts, nil
 }
+
+// FetchPreviewImg get the preview image of a post
+func FetchPreviewImg(p Post) string {
+	// TODO: handle error
+	doc, _ := goquery.NewDocument(p.Href)
+	imgSelector := `#main-content a[href$=".jpg"],a[href$=".png"],a[href$=".gif"]`
+	imgURL, _ := doc.Find(imgSelector).Attr("href")
+	return imgURL
+}
