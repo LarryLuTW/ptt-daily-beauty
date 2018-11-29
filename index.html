@@ -22,24 +22,28 @@
       #content {
         text-align: center;
         color: #444444;
-        padding: 20px 50px;
+        padding: 20px 25px;
       }
       #preview {
         background-color: #6cd7e5;
-        height: 100vh;
         text-align: center;
-        padding-top: 50px;
+        padding: 50px 0;
+      }
+      #preview > img {
+        width: 100%;
+        max-width: 360px;
       }
       .title {
         font-size: 2.5em;
+        font-family: Georgia, Times, 'Times New Roman', serif;
       }
       .subscribe > input {
         outline: none;
-        border-width: 2px;
         font-size: 18px;
         padding: 7px 4px;
         width: calc(100% - 50px);
-        max-width: 400px;
+        max-width: 300px;
+        border: 1px solid #bfbfbf;
       }
       .subscribe > .button {
         width: 50px;
@@ -66,7 +70,7 @@
           </div>
         </div>
         <div class="col-md-5" id="preview">
-          <img src="https://i.imgur.com/V5NSWlS.png" width="360px" />
+          <img src="https://i.imgur.com/V5NSWlS.png" />
         </div>
       </div>
     </div>
