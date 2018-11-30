@@ -9,12 +9,12 @@
       if (origin === 'https://www.daily-beauty.xyz') {
         window.location.replace('https://daily-beauty.xyz')
       }
-      // TODO: verify email
     </script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap-grid.css"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style>
       body {
         margin: 0;
@@ -74,5 +74,27 @@
         </div>
       </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/validator/10.9.0/validator.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+    <script>
+      $('.subscribe > .button').click(function() {
+        let $input = $('.subscribe > input')
+        let email = $input.val()
+        if (!validator.isEmail(email)) {
+          alert('信箱格式錯誤')
+          return
+        }
+
+        axios
+          .post('/api/subscribe', { email: email })
+          .then(function(res) {
+            alert(email + ' 訂閱成功，表特日報會在每天晚上十一點發送')
+            $input.val('')
+          })
+          .catch(function(err) {
+            alert('訂閱失敗')
+          })
+      })
+    </script>
   </body>
 </html>
