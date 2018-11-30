@@ -34,8 +34,17 @@
         max-width: 360px;
       }
       .title {
-        font-size: 2.5em;
+        font-size: 40px;
         font-family: Georgia, Times, 'Times New Roman', serif;
+      }
+      .description {
+        padding-bottom: 20px;
+      }
+      .description > p {
+        font-family: 'Montserrat Light', 'Helvetica Neue', Helvetica, sans-serif;
+        letter-spacing: 0.05em;
+        font-size: 22px;
+        margin: 15px 0;
       }
       .subscribe > input {
         outline: none;
@@ -60,6 +69,13 @@
       <div class="row">
         <div class="col-md-7" id="content">
           <h1 class="title">Daily Beauty 表特日報</h1>
+          <div class="description">
+            <p>Daily Beauty 就跟它的名字一樣，是一個有關表特的日報</p>
+            <p>每晚十一點會自動蒐集 PTT 表特版前三名送到你的信箱</p>
+            <p>可以說是群眾智慧的展現</p>
+            <p>想要的話就快點訂閱吧～～～</p>
+          </div>
+
           <div class="subscribe d-flex justify-content-center">
             <input name="email" type="email" placeholder="請輸入你的信箱" />
             <div
@@ -88,7 +104,7 @@
         axios
           .post('/api/subscribe', { email: email })
           .then(function(res) {
-            alert(email + ' 訂閱成功，表特日報會在每天晚上十一點發送')
+            alert(email + ' 訂閱成功')
             $input.val('')
           })
           .catch(function(err) {
