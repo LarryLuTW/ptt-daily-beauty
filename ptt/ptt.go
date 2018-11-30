@@ -52,8 +52,8 @@ func fetchYesterdayPosts() ([]model.Post, error) {
 // FetchRandomBeauty randomly fetch a model.Beauty
 func FetchRandomBeauty() (model.Beauty, error) {
 	prefix := "[正妹]"
-	page := rand.Intn(50) + 11 // 10 ~ 60
-	posts, err := api.Search(prefix, page, 90)
+	page := rand.Intn(40) + 11 // 11 ~ 50
+	posts, err := api.Search(prefix, page, 99)
 
 	if err != nil {
 		return model.Beauty{}, err
