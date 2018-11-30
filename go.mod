@@ -8,6 +8,7 @@ require (
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/golang/protobuf v1.2.0 // indirect
 	github.com/golang/snappy v0.0.0-20180518054509-2e65f85255db // indirect
+	github.com/jmoiron/jsonq v0.0.0-20150511023944-e874b168d07e
 	github.com/mattn/go-isatty v0.0.4 // indirect
 	github.com/mongodb/mongo-go-driver v0.0.18
 	github.com/ugorji/go/codec v0.0.0-20181125142609-66da5d561eb7 // indirect

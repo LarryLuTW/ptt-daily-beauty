@@ -1,6 +1,9 @@
 package main
 
+// 群眾智慧
+
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"math/rand"
@@ -10,6 +13,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/jmoiron/jsonq"
 	"github.com/vjeantet/jodaTime"
 
 	"main/db"
@@ -70,6 +74,15 @@ func publishHandler(c *gin.Context) {
 }
 
 func subscribeHandler(c *gin.Context) {
+	data := map[string]interface{}{}
+	dec := json.NewDecoder(c.Request.Body)
+	dec.Decode(&data)
+	jq := jsonq.NewQuery(data)
+	email, err := jq.String("email")
+	if err != nil {
+		panic(err)
+	}
+	db.InsertAEmail(email)
 }
 
 // api/unsubscribe?token={jwt_token}
