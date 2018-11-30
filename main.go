@@ -101,6 +101,14 @@ func unsubscribeHandler(c *gin.Context) {
 	c.String(200, "you(%s) have been unsubscribed from our mailing list", email)
 }
 
+func emailsHandler(c *gin.Context) {
+	emails, err := db.GetEmails()
+	if err != nil {
+		panic(err)
+	}
+	c.JSON(200, emails)
+}
+
 func homePageHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "index.html", nil)
 }
@@ -112,6 +120,7 @@ func main() {
 
 	r.POST("/api/subscribe", subscribeHandler)
 	r.GET("/api/unsubscribe", unsubscribeHandler)
+	r.GET("/api/emails", emailsHandler)
 
 	r.LoadHTMLFiles("index.html")
 	r.GET("/", homePageHandler)
