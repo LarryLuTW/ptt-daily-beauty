@@ -1,6 +1,7 @@
 package model
 
 import (
+	"regexp"
 	"strings"
 	"time"
 
@@ -19,8 +20,18 @@ type Post struct {
 func fetchPreviewImg(p *Post) string {
 	// TODO: handle error
 	doc, _ := goquery.NewDocument(p.Href)
-	imgSelector := `#main-content a[href$=".jpg"],a[href$=".png"],a[href$=".gif"]`
+	imgSelector := `#main-content a[href$=".jpg"],a[href$=".png"],a[href$=".gif"],a[href*="imgur"]`
 	imgURL, _ := doc.Find(imgSelector).Attr("href")
+
+	// https://imgur.com/8bsl72C -> https://imgur.com/8bsl72C.jpg
+	matched, err := regexp.MatchString("^https?://imgur.com/\\w+$", imgURL)
+	if err != nil {
+		panic(err)
+	}
+	if matched {
+		imgURL += ".jpg"
+	}
+
 	return imgURL
 }
 
