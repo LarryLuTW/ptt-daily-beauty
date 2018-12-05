@@ -1,7 +1,5 @@
 package main
 
-// 群眾智慧
-
 import (
 	"encoding/json"
 	"fmt"
@@ -113,6 +111,15 @@ func homePageHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "index.html", nil)
 }
 
+// Redirect /ptt/redirect/M.1543991133.A.1A1
+// to https://www.ptt.cc/bbs/Beauty/M.1543991133.A.1A1.html
+func pttRedirectHandler(c *gin.Context) {
+	baseURL := "https://www.ptt.cc/bbs/Beauty/"
+	articleID := c.Param("articleID")
+	location := fmt.Sprintf("%s%s.html", baseURL, articleID)
+	c.Redirect(302, location)
+}
+
 func main() {
 	r := gin.Default()
 	r.GET("/test", testHandler)
@@ -121,6 +128,8 @@ func main() {
 	r.POST("/api/subscribe", subscribeHandler)
 	r.GET("/api/unsubscribe", unsubscribeHandler)
 	r.GET("/api/emails", emailsHandler)
+
+	r.GET("/ptt/redirect/:articleID", pttRedirectHandler)
 
 	r.LoadHTMLFiles("index.html")
 	r.GET("/", homePageHandler)
@@ -135,8 +144,6 @@ func main() {
 	panic(err)
 }
 
-// TODO: www to non-www, enforce https
-// TODO: unit test
 // TODO: analysis 轉網址
 // TODO: 禮拜幾標題變化
 // TODO: 下載所有圖片

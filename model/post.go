@@ -1,6 +1,7 @@
 package model
 
 import (
+	"fmt"
 	"regexp"
 	"strings"
 	"time"
@@ -40,13 +41,21 @@ func trimTitlePrefix(title string) string {
 	return strings.TrimPrefix(title, "[正妹] ")
 }
 
+// transform https://www.ptt.cc/bbs/Beauty/M.1543991133.A.1A1.html
+// to https://daily-beauty.xyz/ptt/redirect/M.1543991133.A.1A1
+func transformURL(pttURL string) string {
+	var articleID string
+	fmt.Sscanf(pttURL, "https://www.ptt.cc/bbs/Beauty/%18s.html", &articleID)
+	return fmt.Sprintf("https://daily-beauty.xyz/ptt/redirect/%s", articleID)
+}
+
 // ToBeauty transform a Post to a Beauty
 func (p *Post) ToBeauty() Beauty {
 	previewImg := fetchPreviewImg(p)
 	return Beauty{
 		NVote:      p.NVote,
 		Title:      trimTitlePrefix(p.Title),
-		Href:       p.Href,
+		Href:       transformURL(p.Href),
 		PreviewImg: previewImg,
 	}
 }

@@ -20,6 +20,9 @@ func TestPostToBeauty(t *testing.T) {
 		if b.Title != "覺得還不錯" {
 			t.Error("trim title error")
 		}
+		if b.Href != "https://daily-beauty.xyz/ptt/redirect/M.1543280871.A.39A" {
+			t.Errorf("transform url error %s", b.Href)
+		}
 	}
 
 	{
