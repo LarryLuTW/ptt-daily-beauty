@@ -56,9 +56,6 @@ docker exec -it PTTDB_deploy_en bash
 
 ```bash
 gcloud app deploy -q
-```
-
-```bash
 gcloud app browse # open with browser
 ```
 
