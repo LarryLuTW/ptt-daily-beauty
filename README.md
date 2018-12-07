@@ -49,7 +49,7 @@ put your app engine credential here
 
 ```
 docker-compose up -d --build
-docker exec -it mail_sender_deploy_en bash
+docker exec -it PTTDB_deploy_en bash
 ```
 
 ### Deploy app to App Engine(about 1 ~ 2 mins)
