@@ -58,10 +58,8 @@ docker exec -it PTTDB_deploy_en bash
 gcloud app deploy -q
 ```
 
-- open with browser
-
 ```bash
-gcloud app browse
+gcloud app browse # open with browser
 ```
 
 ### Deploy cron job to App Engine
