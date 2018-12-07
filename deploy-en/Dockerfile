@@ -6,6 +6,6 @@ WORKDIR /src
 RUN gcloud components install app-engine-go -q
 
 # setup configuration on startup
-CMD gcloud auth activate-service-account --key-file credential.json && \
+CMD gcloud auth activate-service-account --key-file deploy-en/credential.json && \
     gcloud config set project daily-beauty-209105 && \
     bash
