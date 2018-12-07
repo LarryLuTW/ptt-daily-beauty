@@ -1,3 +1,7 @@
+## [Daily Beauty - 表特日報](https://daily-beauty.xyz)
+
+![](https://i.imgur.com/yo4b7AB.png)
+
 ## Development Setup
 
 ### Mongodb
