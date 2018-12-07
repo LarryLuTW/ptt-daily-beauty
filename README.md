@@ -1,20 +1,5 @@
 ## Development Setup
 
-### GCP App Engine
-
-put your app engine credential here
-
-```js
-// deploy-en/credential.json
-{
-    "type": "service_account",
-    "project_id": "YOUR_PROJECT_ID",
-    "private_key_id": "YOUR_PRIVATE_KEY_ID",
-    "private_key": "YOUR_PRIVATE_KEY",
-    // ...
-}
-```
-
 ### Mongodb
 
 ```go
@@ -43,20 +28,31 @@ const (
 )
 ```
 
-
-
 ## Deployment
 
-#### First, go into deploy environment
+### Setup GCP App Engine
+
+put your app engine credential here
+
+```js
+// deploy-en/credential.json
+{
+    "type": "service_account",
+    "project_id": "YOUR_PROJECT_ID",
+    "private_key_id": "YOUR_PRIVATE_KEY_ID",
+    "private_key": "YOUR_PRIVATE_KEY",
+    // ...
+}
+```
+
+### Go into deploy environment
 
 ```
 docker-compose up -d --build
 docker exec -it mail_sender_deploy_en bash
 ```
 
-### app
-
-- deploy to app engine(about 1 ~ 2 mins)
+### Deploy app to App Engine(about 1 ~ 2 mins)
 
 ```bash
 gcloud app deploy -q
@@ -68,18 +64,8 @@ gcloud app deploy -q
 gcloud app browse
 ```
 
-wait for deploy finish and goto [https://daily-beauty-209105.appspot.com/test](https://daily-beauty-209105.appspot.com/test)
-
-- get logs
-
-```
-gcloud app logs tail -s default
-```
-
-### cron job
+### Deploy cron job to App Engine
 
 ```bash
 gcloud app deploy cron.yaml -q
 ```
-
-goto [https://console.cloud.google.com/appengine/taskqueues/cron?project=daily-beauty-209105](https://console.cloud.google.com/appengine/taskqueues/cron?project=daily-beauty-209105)
