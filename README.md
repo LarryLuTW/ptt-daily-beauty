@@ -53,22 +53,14 @@ put your app engine credential here
 }
 ```
 
-### Go into deploy environment
-
-```
-docker-compose up -d --build
-docker exec -it PTTDB_deploy_en bash
-```
-
 ### Deploy app to App Engine(about 1 ~ 2 mins)
 
 ```bash
-gcloud app deploy -q
-gcloud app browse # open with browser
+make deploy-app
 ```
 
 ### Deploy cron job to App Engine
 
 ```bash
-gcloud app deploy cron.yaml -q
+make deploy-cron
 ```
