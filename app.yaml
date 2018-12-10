@@ -9,3 +9,4 @@ automatic_scaling:
 
 env_variables:
   GIN_MODE: 'release'
+  CONFIGURATION_SET: 'daily-prod'
