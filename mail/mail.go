@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/smtp"
+	"os"
 
 	"main/model"
 )
@@ -21,6 +22,12 @@ func createMsg(to, subject, html string) []byte {
 	msg += fmt.Sprintf("To: %s\r\n", to)
 	msg += fmt.Sprintf("From: %s <%s>\r\n", name, from)
 	msg += fmt.Sprintf("Subject: %s\r\n", subject)
+
+	confSet := os.Getenv("CONFIGURATION_SET")
+	if confSet == "" {
+		confSet = "daily-dev"
+	}
+	msg += fmt.Sprintf("X-SES-CONFIGURATION-SET: %s\r\n", confSet)
 
 	msg += "MIME-version: 1.0;\r\n"
 	msg += `Content-Type: text/html; charset="UTF-8"` + "\r\n"
