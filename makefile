@@ -3,8 +3,8 @@ build-image:
 
 deploy-app:
 	$(MAKE) build-image
-	docker run -it -v ${PWD}:/src pttdb_deploy_en gcloud app deploy -q
+	docker run -it --rm -v ${PWD}:/src pttdb_deploy_en gcloud app deploy -q
 
 deploy-cron:
 	$(MAKE) build-image
-	docker run -it -v ${PWD}:/src pttdb_deploy_en gcloud app deploy cron.yaml -q
+	docker run -it --rm -v ${PWD}:/src pttdb_deploy_en gcloud app deploy cron.yaml -q
