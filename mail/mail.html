@@ -79,7 +79,7 @@
     <div class="list-title">本日精選</div>
     {{ range $.Beauties }}
     <a class="item" href="{{.Href}}">
-      <h2>第{{ .Rank }}名：{{ .Title }}</h2>
+      <h2>{{ .Title }}</h2>
       <img class="preview" src="{{.PreviewImg}}" />
     </a>
     {{ end }}

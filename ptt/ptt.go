@@ -83,10 +83,6 @@ func getBestBeauties(posts []model.Post) []model.Beauty {
 	}
 	wg.Wait()
 
-	beauties[0].Rank = "一"
-	beauties[1].Rank = "二"
-	beauties[2].Rank = "三"
-
 	return beauties
 }
 
