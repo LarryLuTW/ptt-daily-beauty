@@ -46,8 +46,13 @@
         word-break: break-word;
       }
       .item {
+        display: block;
         text-decoration: none;
         color: #2196f3;
+        margin: 15px 0;
+      }
+      .item > h2 {
+        margin: 0;
       }
       footer {
         color: #8a9099;
@@ -73,19 +78,17 @@
 
     <div class="list-title">本日精選</div>
     {{ range $.Beauties }}
-    <h2>
-      <a class="item" href="{{.Href}}"> 第{{ .Rank }}名：{{ .Title }} </a>
+    <a class="item" href="{{.Href}}">
+      <h2>第{{ .Rank }}名：{{ .Title }}</h2>
       <img class="preview" src="{{.PreviewImg}}" />
-    </h2>
+    </a>
     {{ end }}
 
     <div class="list-title">隨機推薦</div>
-    <h2>
-      <a class="item" href="{{ $.RandomBeauty.Href }}">
-        {{ $.RandomBeauty.Title }}
-      </a>
+    <a class="item" href="{{ $.RandomBeauty.Href }}">
+      <h2>{{ $.RandomBeauty.Title }}</h2>
       <img class="preview" src="{{ $.RandomBeauty.PreviewImg }}" />
-    </h2>
+    </a>
 
     <footer>
       <div>
