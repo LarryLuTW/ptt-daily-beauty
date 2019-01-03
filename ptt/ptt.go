@@ -70,11 +70,12 @@ func getBestBeauties(posts []model.Post) []model.Beauty {
 		return posts[i].NVote > posts[j].NVote
 	})
 
-	champions := posts[:3]
-	beauties := make([]model.Beauty, 3)
+	nBeauty := 2
+	champions := posts[:nBeauty]
+	beauties := make([]model.Beauty, nBeauty)
 
 	var wg sync.WaitGroup
-	wg.Add(3)
+	wg.Add(nBeauty)
 	for i, p := range champions {
 		go func(i int, p model.Post) {
 			beauties[i] = p.ToBeauty()
