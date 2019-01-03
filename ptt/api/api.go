@@ -22,7 +22,7 @@ func FetchPageAmount() (int, error) {
 	if n == 0 {
 		return 0, errors.New("Cannot connect to PTT")
 	}
-	return n, nil
+	return n + 1, nil
 }
 
 // FetchPage get all posts in a page
