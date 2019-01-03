@@ -50,8 +50,9 @@ func parseDoc2Posts(doc *goquery.Document, prefix string) []model.Post {
 		href := "https://www.ptt.cc" + hrefText
 
 		currentYear := time.Now().Year()
-		dateText := fmt.Sprintf("%d/%s", currentYear, el.Find(".meta .date").Text())
-		date, _ := jodaTime.ParseInLocation("YYYY/MM/dd", dateText, "Asia/Taipei")
+		mmdd := strings.TrimSpace(el.Find(".meta .date").Text())
+		dateText := fmt.Sprintf("%d/%s", currentYear, mmdd)
+		date, _ := jodaTime.ParseInLocation("YYYY/M/dd", dateText, "Asia/Taipei")
 
 		p := model.Post{
 			Title: title,
