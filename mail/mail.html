@@ -79,14 +79,14 @@
     <div class="list-title">本日精選</div>
     {{ range $.Beauties }}
     <a class="item" href="{{.Href}}">
-      <h2>{{ .Title }}</h2>
+      <h2>{{ .Title }}({{ .NImage }}圖)</h2>
       <img class="preview" src="{{.PreviewImg}}" />
     </a>
     {{ end }}
 
     <div class="list-title">隨機推薦</div>
     <a class="item" href="{{ $.RandomBeauty.Href }}">
-      <h2>{{ $.RandomBeauty.Title }}</h2>
+      <h2>{{ $.RandomBeauty.Title }}({{ $.RandomBeauty.NImage }}圖)</h2>
       <img class="preview" src="{{ $.RandomBeauty.PreviewImg }}" />
     </a>
 
@@ -96,7 +96,7 @@
         如果不想再收到了可以
         <a
           class="unsubscribe"
-          href="https://daily-beauty.xyz/api/unsubscribe?token={{$.Token}}"
+          href="https://daily-beauty.xyz/api/unsubscribe?token={{ $.Token }}"
           >取消訂閱</a
         >
       </div>

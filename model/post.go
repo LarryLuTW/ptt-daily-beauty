@@ -25,7 +25,20 @@ func fetchPreviewImg(p *Post) string {
 	return imgURL
 }
 
-// [正妹] 大橋未久 -> 大橋未久
+// fetchImageAmount get the amount of images in a post
+func fetchImageAmount(p *Post) int {
+	// TODO: handle error
+	doc, _ := goquery.NewDocument(p.Href)
+	doc.Find("div.push").Each(func(i int, s *goquery.Selection) {
+		// remove push comment
+		s.Remove()
+	})
+	imgSelector := `#main-content a[href$=".jpg"],a[href$=".png"],a[href$=".gif"]`
+	nImage := doc.Find(imgSelector).Size()
+	return nImage
+}
+
+// "[正妹] 大橋未久" -> "大橋未久"
 func trimTitlePrefix(title string) string {
 	return strings.TrimPrefix(title, "[正妹] ")
 }
@@ -41,8 +54,10 @@ func transformURL(pttURL string) string {
 // ToBeauty transform a Post to a Beauty
 func (p *Post) ToBeauty() Beauty {
 	previewImg := fetchPreviewImg(p)
+	nImage := fetchImageAmount(p)
 	return Beauty{
 		NVote:      p.NVote,
+		NImage:     nImage,
 		Title:      trimTitlePrefix(p.Title),
 		Href:       transformURL(p.Href),
 		PreviewImg: previewImg,
