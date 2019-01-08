@@ -56,7 +56,7 @@ func sendDailyBeauty(subscribers []string, isTest bool) {
 func testHandler(c *gin.Context) {
 	toMails := []string{"pudding850806@gmail.com"}
 	sendDailyBeauty(toMails, true)
-	log.Println("Test successfully")
+	log.Printf("Test successfully\n")
 	c.String(200, "Test successfully")
 }
 
@@ -67,7 +67,7 @@ func publishHandler(c *gin.Context) {
 	}
 
 	sendDailyBeauty(toMails, false)
-	log.Println("Publish successfully")
+	log.Printf("Publish to %d users successfully\n", len(toMails))
 	c.String(200, "Publish successfully")
 }
 
