@@ -54,7 +54,7 @@ func sendDailyBeauty(subscribers []string, isTest bool) {
 }
 
 func testHandler(c *gin.Context) {
-	toMails := []string{"pudding850806@gmail.com"}
+	toMails := []string{"flaviogptdb@gmail.com"}
 	sendDailyBeauty(toMails, true)
 	log.Printf("Test successfully\n")
 	c.String(200, "Test successfully")
