@@ -17,7 +17,7 @@ var emailsCol *mongo.Collection
 
 // init mongodb connection
 func init() {
-	url := fmt.Sprintf("mongodb://%s:%s@%s:%d/%s", user, pass, host, port, dbName)
+	url := fmt.Sprintf("mongodb://%s:%s@%s:%s/%s", user, pass, host, port, dbName)
 	client, err := mongo.NewClient(url)
 	if err != nil {
 		panic(err)

@@ -1,8 +1,10 @@
 package db
 
-const (
-	user = "YOUR_MONGO_USER"
-	pass = "YOUR_MONGO_PASSWORD"
-	host = "YOUR_MONGO_HOST"
-	port = 27017
+import "os"
+
+var (
+	host = os.Getenv("MONGO_HOST")
+	port = os.Getenv("MONGO_PORT")
+	user = os.Getenv("MONGO_USER")
+	pass = os.Getenv("MONGO_PASS")
 )

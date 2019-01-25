@@ -1,8 +1,10 @@
 package mail
 
-const (
-	user = "YOUR_SES_USER"
-	pwd  = "YOUR_SES_PASSWORD"
-	host = "YOUR_SES_HOST"
-	port = 587
+import "os"
+
+var (
+	host = os.Getenv("SMTP_HOST")
+	port = os.Getenv("SMTP_PORT")
+	user = os.Getenv("SMTP_USER")
+	pwd  = os.Getenv("SMTP_PWD")
 )
