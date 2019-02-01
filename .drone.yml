@@ -1,0 +1,43 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: test
+    image: golang:1.11
+    environment:
+      MONGO_HOST: 
+        from_secret: MONGO_HOST
+      MONGO_PORT: 
+        from_secret: MONGO_PORT
+      MONGO_USER: 
+        from_secret: MONGO_USER
+      MONGO_PASS: 
+        from_secret: MONGO_PASS
+      SMTP_USER: 
+        from_secret: SMTP_USER
+      SMTP_PWD: 
+        from_secret: SMTP_PWD
+      SMTP_HOST: 
+        from_secret: SMTP_HOST
+      SMTP_PORT: 
+        from_secret: SMTP_PORT
+    commands:
+      - go test ./...
+
+  - name: decrypt
+    image: vladgh/gpg
+    environment:
+      GPG_PASSPHASE:
+        from_secret: GPG_PASSPHASE
+    commands:
+      - echo $GPG_PASSPHASE | gpg --batch --yes --passphrase-fd 0 app.yaml.gpg
+      - echo $GPG_PASSPHASE | gpg --batch --yes --passphrase-fd 0 deploy-en/credential.json.gpg
+      - cat app.yaml
+      - cat deploy-en/credential.json
+  
+  - name: deploy
+    image: google/cloud-sdk:alpine
+    commands:
+      - gcloud components install app-engine-go -q # install component "app-engine-go"
+      - gcloud auth activate-service-account --key-file ./deploy-en/credential.json
+      - gcloud config set project daily-beauty-209105
