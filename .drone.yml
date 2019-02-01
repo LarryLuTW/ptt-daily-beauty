@@ -41,3 +41,6 @@ steps:
       - gcloud components install app-engine-go -q # install component "app-engine-go"
       - gcloud auth activate-service-account --key-file ./deploy-en/credential.json
       - gcloud config set project daily-beauty-209105
+      - gcloud app deploy -q
+      - gcloud app deploy cron.yaml -q
+
