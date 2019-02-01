@@ -31,15 +31,13 @@ steps:
         from_secret: GPG_PASSPHASE
     commands:
       - echo $GPG_PASSPHASE | gpg --batch --yes --passphrase-fd 0 app.yaml.gpg
-      - echo $GPG_PASSPHASE | gpg --batch --yes --passphrase-fd 0 deploy-en/credential.json.gpg
-      - cat app.yaml
-      - cat deploy-en/credential.json
+      - echo $GPG_PASSPHASE | gpg --batch --yes --passphrase-fd 0 credential.json.gpg
   
   - name: deploy
     image: google/cloud-sdk:alpine
     commands:
       - gcloud components install app-engine-go -q # install component "app-engine-go"
-      - gcloud auth activate-service-account --key-file ./deploy-en/credential.json
+      - gcloud auth activate-service-account --key-file credential.json
       - gcloud config set project daily-beauty-209105
       - gcloud app deploy -q
       - gcloud app deploy cron.yaml -q
