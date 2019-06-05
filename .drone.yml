@@ -3,23 +3,23 @@ name: default
 
 steps:
   - name: test
-    image: golang:1.11
+    image: golang:1.12
     environment:
-      MONGO_HOST: 
+      MONGO_HOST:
         from_secret: MONGO_HOST
-      MONGO_PORT: 
+      MONGO_PORT:
         from_secret: MONGO_PORT
-      MONGO_USER: 
+      MONGO_USER:
         from_secret: MONGO_USER
-      MONGO_PASS: 
+      MONGO_PASS:
         from_secret: MONGO_PASS
-      SMTP_USER: 
+      SMTP_USER:
         from_secret: SMTP_USER
-      SMTP_PWD: 
+      SMTP_PWD:
         from_secret: SMTP_PWD
-      SMTP_HOST: 
+      SMTP_HOST:
         from_secret: SMTP_HOST
-      SMTP_PORT: 
+      SMTP_PORT:
         from_secret: SMTP_PORT
     commands:
       - go test ./...
@@ -32,7 +32,7 @@ steps:
     commands:
       - echo $GPG_PASSPHASE | gpg --batch --yes --passphrase-fd 0 app.yaml.gpg
       - echo $GPG_PASSPHASE | gpg --batch --yes --passphrase-fd 0 credential.json.gpg
-  
+
   - name: deploy
     image: google/cloud-sdk:alpine
     commands:
@@ -41,4 +41,3 @@ steps:
       - gcloud config set project daily-beauty-209105
       - gcloud app deploy -q
       - gcloud app deploy cron.yaml -q
-
