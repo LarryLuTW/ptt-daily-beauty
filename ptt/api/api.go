@@ -3,6 +3,7 @@ package api
 import (
 	"errors"
 	"fmt"
+	"net/http"
 
 	"main/model"
 
@@ -12,8 +13,17 @@ import (
 // FetchPageAmount get latest page number
 func FetchPageAmount() (int, error) {
 	url := "https://www.ptt.cc/bbs/Beauty/index.html"
-	doc, _ := goquery.NewDocument(url)
-	prevPageSelector := ".wide:nth-child(2)"
+	client := http.DefaultClient
+	req, _ := http.NewRequest("GET", url, nil)
+	req.Header.Set("Cookie", "over18=1")
+
+	res, _ := client.Do(req)
+	doc, _ := goquery.NewDocumentFromResponse(res)
+
+	html, _ := doc.Html()
+	fmt.Println(html)
+
+	prevPageSelector := "div.btn-group.btn-group-paging a:nth-child(2)"
 	href, _ := doc.Find(prevPageSelector).Attr("href")
 
 	var n int
