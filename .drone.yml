@@ -3,7 +3,7 @@ name: default
 
 steps:
   - name: test
-    image: golang:1.12
+    image: golang:1.13.1
     environment:
       MONGO_HOST:
         from_secret: MONGO_HOST
