@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"net/http"
 	"strings"
 	"time"
 
@@ -19,7 +20,13 @@ type Post struct {
 // fetchPreviewImg get the preview image of a post
 func fetchPreviewImg(p *Post) string {
 	// TODO: handle error
-	doc, _ := goquery.NewDocument(p.Href)
+	client := http.DefaultClient
+	req, _ := http.NewRequest("GET", p.Href, nil)
+	req.Header.Set("Cookie", "over18=1")
+
+	res, _ := client.Do(req)
+	doc, _ := goquery.NewDocumentFromResponse(res)
+
 	imgSelector := `#main-content a[href$=".jpg"],a[href$=".png"],a[href$=".gif"]`
 	imgURL, _ := doc.Find(imgSelector).Attr("href")
 	return imgURL
@@ -28,7 +35,13 @@ func fetchPreviewImg(p *Post) string {
 // fetchImageAmount get the amount of images in a post
 func fetchImageAmount(p *Post) int {
 	// TODO: handle error
-	doc, _ := goquery.NewDocument(p.Href)
+	client := http.DefaultClient
+	req, _ := http.NewRequest("GET", p.Href, nil)
+	req.Header.Set("Cookie", "over18=1")
+
+	res, _ := client.Do(req)
+	doc, _ := goquery.NewDocumentFromResponse(res)
+
 	doc.Find("div.push").Each(func(i int, s *goquery.Selection) {
 		// remove push comment
 		s.Remove()
