@@ -22,15 +22,3 @@ put your app engine credential here
     // ...
 }
 ```
-
-### Deploy app to App Engine(about 1 ~ 2 mins)
-
-```bash
-make deploy-app
-```
-
-### Deploy cron job to App Engine
-
-```bash
-make deploy-cron
-```
